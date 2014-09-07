@@ -1,3 +1,6 @@
+<?php
+require_once('php/config.php');
+?>
 <!DOCTYPE html>
 <html>
     <head>

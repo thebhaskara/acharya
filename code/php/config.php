@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors',true);
-define('SITE_HOME_URL', 'http://localhost:88/bb3/');
+define('SITE_HOME_URL', 'http://localhost:885/code/');
 
 
 /*
@@ -20,10 +20,7 @@ define('DB_PASSWORD','');
 define('DB','test');
 
 # Table Prefix
-define('T_PREFIX','sample_bb3_00_');
-
-# Table Names
-define('T_USER',T_PREFIX.'user');
+define('TABLE_PREFIX','sample_acharya_00_');
 
 # Encryption key
 define("ENCRYPTION_KEY", "!@#bhaskara$%^&*");
@@ -34,16 +31,6 @@ define("SESSION_ID", "session_id");
 #define("SESSION_USER", "session_user");
 
 # Folders
-define("F_VIEW", "View/");
-define("F_JS", "View/js/");
-define("F_JS_EXT", "View/js/external/");
-define("F_CSS", "View/css/");
-define("F_CSS_EXT", "View/css/external/");
-define("F_FONTS", "View/fonts/");
-define("F_IMG", "View/img/");
-define("F_LIBRARY", "Controller/Library/");
-define("F_MODEL", "Controller/Model/");
-
 
 /*
 # Image Upload Limit
@@ -59,8 +46,8 @@ define("F_MODEL", "Controller/Model/");
 
 # Includes
 require_once("utilities.php");
-require_all_php(F_LIBRARY);
-require_all_php(F_MODEL);
+require_all_php("php/lib");
+require_all_php("php/modules");
 
 
 # Start Session
@@ -70,8 +57,8 @@ ini_set('session.gc_maxlifetime', '5400'); #session life for 90 minutes
 if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) session_cache_limiter("must-revalidate");
 
 # Start Session and the Session ID
-manager::start_session();
+#manager::start_session();
 
 # DB start
-manager::connect();
+#manager::connect();
 ?>
