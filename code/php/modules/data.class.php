@@ -1,8 +1,9 @@
 <?php
 class data{
-    public connect(){
-        R::setup('mysql:host=localhost;
-        dbname=mydatabase','user','password');
+    public function connect(){
+        R::setup("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER_NAME,DB_PASSWORD);
     }
+    
+    
 }
 ?>

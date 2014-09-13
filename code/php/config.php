@@ -17,10 +17,13 @@ define('SITE_HOME_URL', 'http://localhost:885/code/');
 define('DB_HOST','localhost');
 define('DB_USER_NAME','root');
 define('DB_PASSWORD','');
-define('DB','test');
+define('DB_NAME','kuchbhi');
 
 # Table Prefix
-define('TABLE_PREFIX','sample_acharya_00_');
+define('TABLE_PREFIX','kuchbhi01');
+define('TABLE_QUESTION','question');
+define('TABLE_QUESTION_TYPE','questiontype');
+# define('TABLE_PREFIX','kuchbhi01');
 
 # Encryption key
 define("ENCRYPTION_KEY", "!@#bhaskara$%^&*");
@@ -48,6 +51,7 @@ define("SESSION_ID", "session_id");
 require_once("utilities.php");
 require_all_php("php/lib");
 require_all_php("php/modules");
+require_all_php("php/models");
 
 
 # Start Session
