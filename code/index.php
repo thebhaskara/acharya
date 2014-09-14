@@ -11,18 +11,29 @@ require_once('php/config.php');
     <body>
 <?php
 data::connect();
-$questiontype = new question_type();
-$questiontype->type = 'multiple choice';
-$questiontype->description = 'Choose one of the options from the given.';
-    
-$questiontypeid = $questiontype->insert_into_db();
+//$questiontype = new question_type();
+//$questiontype->type = 'multiple choice';
+//$questiontype->description = 'Choose one of the options from the given.';
+//
+//$id = $questiontype->insert_into_db();
 
 $question = new question();
-$question->content = 'Solve this bloody question';
-$question->time_limit = 120;
-$question->question_type_id = $questiontypeid;
+$question->content = 'Solve this question';
+$question->question_type_id = 2;
+$question->time_limit = 12;
+$question->level_id = 1;
+$question->topic_id = 1;
+//$question->scenario_id = 1;
 
-$id = $question->insert_into_db();
+$scenario = new scenario();
+$scenario->summary = "abc";
+$scenario->instruction = "xyz";
+$scenario->content = "as,duiyncvdfyv";
+
+//$id = $question->insert_into_db();
+$create_question = new create_question();
+$id = $create_question->insert_into_db($question, $scenario);
+
 if($id>-1)
     echo "Hurray!! $id";
 else
