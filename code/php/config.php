@@ -21,8 +21,13 @@ define('DB_NAME','kuchbhi');
 
 # Table Prefix
 define('TABLE_PREFIX','kuchbhi01');
-define('TABLE_QUESTION','question');
-define('TABLE_QUESTION_TYPE','questiontype');
+define('TABLE_QUESTION',TABLE_PREFIX.'question');
+define('TABLE_QUESTION_TYPE',TABLE_PREFIX.'questiontype');
+define('TABLE_SCENARIO',TABLE_PREFIX.'scenario');
+define('TABLE_LEVEL',TABLE_PREFIX.'level');
+define('TABLE_TOPIC',TABLE_PREFIX.'topic');
+define('TABLE_ANSWER',TABLE_PREFIX.'answer');
+define('TABLE_IMAGES',TABLE_PREFIX.'images');
 # define('TABLE_PREFIX','kuchbhi01');
 
 # Encryption key
