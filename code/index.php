@@ -8,13 +8,13 @@ require_once('php/config.php');
         <title>Title is not decided yet</title>
     </head>
 
-    <body>
-<?php
-data::connect();
+    <body>        
+        <?php
+
 $questiontype = new question_type();
 $questiontype->type = 'multiple choice';
 $questiontype->description = 'Choose one of the options from the given.';
-    
+
 $questiontypeid = $questiontype->insert_into_db();
 
 $question = new question();
@@ -27,7 +27,8 @@ if($id>-1)
     echo "Hurray!! $id";
 else
     echo 'WTF!!';
-?>
+
+        ?>
     </body>
 
 </html>

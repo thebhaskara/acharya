@@ -21,8 +21,8 @@ define('DB_NAME','kuchbhi');
 
 # Table Prefix
 define('TABLE_PREFIX','kuchbhi01');
-define('TABLE_QUESTION','question');
-define('TABLE_QUESTION_TYPE','questiontype');
+define('TABLE_QUESTION',TABLE_PREFIX.'question');
+define('TABLE_QUESTION_TYPE',TABLE_PREFIX.'questiontype'); 
 # define('TABLE_PREFIX','kuchbhi01');
 
 # Encryption key
@@ -64,5 +64,5 @@ if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) session_cache_limiter("must-reva
 #manager::start_session();
 
 # DB start
-#manager::connect();
+data::connect();
 ?>
