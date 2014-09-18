@@ -7,8 +7,9 @@ class question
     public $question_type_id;
     public $time_limit;
     public $level_id;
-    public $topic_id;
+    public $topic_ids;
     public $scenario_id;
+    public $topics;
     
     function insert_into_db()
     {
@@ -21,8 +22,24 @@ class question
         
         $question->question_type = question_type::load($this->question_type_id);
         $question->level = level::load($this->level_id);
-        $question->topic = topic::load($this->topic_id);
-        $question->scenario = $this->scenario;
+        //$question->topic = topic::load($this->topic_id); //will be used when a question belongs to just one topic
+        $question->scenario = scenario::load($this->scenario_id);
+        
+        foreach ($this->topic_ids as $value)
+        {
+            $relation = R::dispense(TABLE_QUESTIONTOPICRELATION);
+            $topic = topic::load($value);
+            
+            if (!$topic->id) { 
+                $topic->text = 'topic a';
+            }
+            
+            $relation->question = $question;
+            $relation->topic = $topic;
+            
+            $ID = R::store($relation);
+        }
+        
         return R::store($question);
     }
     

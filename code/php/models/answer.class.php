@@ -3,7 +3,7 @@ class answer
 {
     public $id;
     public $question_id;
-    public $text;
+    public $option;
     public $description;
     public $is_right_answer;
     
@@ -13,8 +13,8 @@ class answer
         //data::connect();
 
         $answer  = R::dispense(TABLE_ANSWER);
-        $answer->question_id = question::load($this->question_id);
-        $answer->text = $this->text;
+        $answer->question = question::load($this->question_id);
+        $answer->option = $this->option;
         $answer->description = $this->description;
         $answer->is_right_answer = $this->is_right_answer;
 
