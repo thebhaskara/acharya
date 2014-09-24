@@ -50,6 +50,7 @@ BEGIN
                 DECLARE question_counter INT DEFAULT 0;
     
                 WHILE question_selected_counter < questions DO
+
                     DECLARE scenario_selected INT DEFAULT 0;
                     DECLARE temp_count INT DEFAULT 0;
                     SELECT id INTO scenario_selected from scenario_list
@@ -58,12 +59,44 @@ BEGIN
                     SET temp_count = SELECT COUNT(1) FROM question_list WHERE scenario_id = scenario_selected;
                     question_selected_counter = question_selected_counter + temp_count;
                     question_counter = question_counter + 1;
-                        WHILE temp_count > 0 DO
-                        INSERT INTO question_paper_detail (question_paper_id, scenario_id);
-                        END WHILE;
+
+                    WHILE temp_count > 0 DO
+                        DECLARE temp_question_id INT DEFAULT 0;
+                        SELECT id INTO temp_question_id
+                        FROM question_list
+                        WHERE scenario_id = scenario_selected
+                        ORDER BY id DESC
+                        LIMIT temp_count - 1, 1;
+                        INSERT INTO question_paper_detail (question_paper_id, question_id) 
+                        VALUES(question_paper_number, temp_question_id);
+                        temp_count = temp_count - 1;
+                    END WHILE;
+
+                    temp_count = 0;
+
                 END WHILE;
+
+                IF question_selected_counter <> questions THEN
+                    DECLARE extra_questions INT DEFAULT 0;
+                    extra_questions = question_selected_counter - questions;
+                    DELETE FROM question_paper_detail
+                    WHERE question_id IN (SELECT question_id FROM question_paper_detail
+                                          WHERE question_paper_id = question_paper_number
+                                          ORDER BY question_id DESC
+                                          LIMIT extra_questions);
+                END IF;
+
                 question_selected_counter = 0;
                 question_counter = 0;
+                
+                UPDATE question
+                SET count = count + 1;
+                WHERE id IN (SELECT id FROM question_list);
+
+                UPDATE scenario
+                SET count = count + 1;
+                WHERE id IN (SELECT id FROM scenario_list);
+
             END WHILE;
             counter = 0;
           #  number_of_question_papers = number_of_question_papers - 1;
