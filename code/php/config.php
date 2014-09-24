@@ -33,6 +33,9 @@ define('TABLE_EXAMPARAMETERS',TABLE_PREFIX.'examparameter');
 define('TABLE_SKILL',TABLE_PREFIX.'skill');
 define('TABLE_QUESTIONTOPICRELATION',TABLE_PREFIX.'questiontopicrelation');
 define('TABLE_EXAMSKILLRELATION',TABLE_PREFIX.'examskillrelation');
+define('TABLE_QUESTION_PAPER',TABLE_PREFIX.'question_paper');
+define('TABLE_QUESTION_PAPER_DETAIL',TABLE_PREFIX.'question_paper_detail');
+
 
 # Encryption key
 define("ENCRYPTION_KEY", "!@#bhaskara$%^&*");

@@ -7,9 +7,6 @@ class topic
     
     public function insert_into_db()
     {
-        
-        //data::connect();
-
         $topic  = R::dispense(TABLE_TOPIC);
         $topic->name = $this->name;
         $topic->parent_topic_id = $this->parent_topic_id;

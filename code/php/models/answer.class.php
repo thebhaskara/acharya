@@ -9,11 +9,8 @@ class answer
     
     public function insert_into_db()
     {
-        
-        //data::connect();
-
         $answer  = R::dispense(TABLE_ANSWER);
-        $answer->question = question::load($this->question_id);
+        $answer->question = $this->question;
         $answer->option = $this->option;
         $answer->description = $this->description;
         $answer->is_right_answer = $this->is_right_answer;

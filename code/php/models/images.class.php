@@ -8,9 +8,6 @@ class images
     
     public function insert_into_db()
     {
-        
-        //data::connect();
-
         $images  = R::dispense(TABLE_IMAGES);
         $images->name = $this->name;
         $images->path = $this->path;

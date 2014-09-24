@@ -7,9 +7,6 @@ class question_type
     
     public function insert_into_db()
     {
-        
-        //data::connect();
-
         $question  = R::dispense(TABLE_QUESTION_TYPE);
         $question->type = $this->type;
         $question->description = $this->description;

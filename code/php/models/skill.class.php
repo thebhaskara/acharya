@@ -6,9 +6,6 @@ class skill
     
     public function insert_into_db()
     {
-        
-        //data::connect();
-
         $skill       = R::dispense(TABLE_SKILL);
         $skill->name = $this->name;
 

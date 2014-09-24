@@ -9,9 +9,6 @@ class level
     
     public function insert_into_db()
     {
-        
-        //data::connect();
-
         $level  = R::dispense(TABLE_LEVEL);
         $level->text = $this->text;
         $level->experience = $this->experience;

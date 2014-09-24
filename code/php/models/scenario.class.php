@@ -8,9 +8,6 @@ class scenario
     
     public function insert_into_db()
     {
-        
-        //data::connect();
-
         $scenario  = R::dispense(TABLE_SCENARIO);
         $scenario->summary = $this->summary;
         $scenario->instruction = $this->instruction;
