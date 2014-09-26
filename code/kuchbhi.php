@@ -13,8 +13,6 @@ require_once('php/config.php');
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <!-- Custom css -->
         <link href="css/style.css" rel="stylesheet">
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
-        <link href="css/summernote.css" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,20 +21,31 @@ require_once('php/config.php');
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
     </head>
-    <body class="container-fluid" ng-controller="addScenario">
+    <body class="container" ng-controller="addScenario">
+        <?php
+/*
+$a = R::dispense('tablea');
+$b = R::dispense('tableb');
+$rel = R::dispense('tableab');
 
-        <?php 
-include("html/nav_area.html"); 
-        ?>
+$a->text = 'Bhaskar';
+
+$b->description = 'is doing something';
+//$relation = R::load('tableab', R::store($rel));
+//$a->relb = $rel;
+//$b->rela = $rel;
+
+$rel->b = $b;
+$rel->a = $a;
+
+echo R::store($rel);
+*/
+basename();
+?>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-2.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/angular.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
-        <script src="js/summernote.min.js"></script>
-        <script src="js/ready.js"></script>
-        <script src="js/anchorDirective.js"></script>
-        <script src="js/dropdownConroller.js"></script>
-        <script src="js/addScenarioController.js"></script>
     </body>
 </html>

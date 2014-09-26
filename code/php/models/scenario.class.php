@@ -12,7 +12,7 @@ class scenario
         $scenario->summary = $this->summary;
         $scenario->instruction = $this->instruction;
         $scenario->content = $this->content;
-
+        
         return R::store($scenario);
     }
     

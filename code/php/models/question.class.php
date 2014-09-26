@@ -10,6 +10,7 @@ class question
     public $topic_ids;
     public $scenario_id;
     public $topics;
+    public $answers;
     
     function insert_into_db()
     {
@@ -31,6 +32,7 @@ class question
             { 
                 $topic->text = 'topic a';
             }
+            
             
             $relation->question = $question;
             $relation->topic = $topic;

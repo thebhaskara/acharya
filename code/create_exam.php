@@ -23,11 +23,27 @@ require_once('php/config.php');
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
     </head>
-    <body class="container-fluid" ng-controller="addScenario">
+    <body class="container-fluid" ng-controller="createExam">
 
         <?php 
 include("html/nav_area.html"); 
         ?>
+
+        <div class="row">
+            <div class="col-sm-3">
+                <!-- left nav -->
+            </div>
+            <div class="col-sm-4">
+                <?php
+include("html/exam_details.html");
+                ?>
+            </div>
+            <div class="col-sm-5">
+                <?php
+include("html/exam_parameters_details.html");
+                ?>
+            </div>
+        </div>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/jquery-2.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -37,6 +53,6 @@ include("html/nav_area.html");
         <script src="js/ready.js"></script>
         <script src="js/anchorDirective.js"></script>
         <script src="js/dropdownConroller.js"></script>
-        <script src="js/addScenarioController.js"></script>
+        <script src="js/createExamController.js"></script>
     </body>
 </html>

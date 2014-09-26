@@ -1,0 +1,122 @@
+<div class="app-question-form" ng-repeat="question in questions" ng-init="initQuestion()">
+    <button type="button" class="close" ng-click="removeQuestion()">&times;</button>
+    <h3>Question {{question.id+1}}</h3>
+    <div class="form-group">
+        <label for="input-question1-content" class="control-label">Content</label>
+        <div class="form-control summernote" id="input-question1-content" my-element="question.contentDoc" ></div>
+
+        <span class="help-block">Enter the question detail in html</span>
+    </div>
+    <div class="form-group row">
+        <label for="input-summary" class="col-sm-2 control-label">Time limit</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="input-summary" placeholder="time..." ng-model="question.timeLimit">
+            <span class="help-block">enter time limit in seconds.</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="input-summary" class="col-sm-2 control-label">Question type</label>
+        <div class="col-sm-3">
+<!--
+            <select class="form-control"  ng-model="question.questionTypeId">
+                <option value="{{type.id}}" ng-repeat="type in questionTypes">{{type.text}}</option>
+            </select>
+-->
+            <!--            dropdown menu-->
+            <div class="btn-group" ng-class="{'open':openClass}" ng-controller="dropdownController">
+                <input type="text" class="form-control" placeholder="type..." ng-model="question.questionTypeText" 
+                       ng-change="openDropdown()">
+                <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
+                <ul class="dropdown-menu" role="menu">
+                    <li  ng-repeat="type in questionTypes | filter:question.questionTypeText">
+                        <a href="#" ng-click="selectQuestionType(); closeDropdown();">{{type.text}}</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="help-block">enter question type.</span>
+        </div>
+    </div>
+    <div class="form-group row">
+        
+        <label for="input-summary" class="col-sm-2 control-label">Topic</label>
+        
+        <div class="col-sm-3 ">
+            
+            <div class="btn-group" ng-class="{'open':openClass}" ng-controller="dropdownController">
+                <input type="text" class="form-control" placeholder="level..." ng-model="question.topictext" 
+                       ng-change="openDropdown()">
+                <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
+                <ul class="dropdown-menu" role="menu">
+                    <li  ng-repeat="topic in topics | filter:question.topictext">
+                        <a href="#" ng-click="selectTopic(); closeDropdown();">{{topic.text}}</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="help-block">enter topic.</span>
+            
+            <div class="alert alert-info alert-dismissible" role="alert" ng-repeat="selTopic in question.selTopics">
+                <button type="button" class="close" ng-click="removeSelTopic()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <strong>{{selTopic.text}}</strong>
+            </div>
+            
+        </div>
+        <button class="btn btn-primary" ng-click="addTopic()"><span class="glyphicon glyphicon-plus"></span> Add this topic</button>
+    </div>
+    <div class="form-group row">
+        <label for="input-summary" class="col-sm-2 control-label">Level</label>
+        <div class="col-sm-3">
+            <!--            dropdown menu-->
+            <div class="btn-group" ng-class="{'open':openClass}" ng-controller="dropdownController">
+                <input type="text" class="form-control" placeholder="level..." ng-model="question.leveltext" 
+                       ng-change="openDropdown()">
+                <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
+                <ul class="dropdown-menu" role="menu">
+                    <li  ng-repeat="level in levels | filter:question.leveltext">
+                        <a href="#" ng-click="selectLevel(); closeDropdown();">{{level.text}}</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="help-block">enter level.</span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="input-question1-content" class="control-label">Answer 1</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="question.answer1isright"> Is right answer
+            </label>
+        </div>
+        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer1">
+        <span class="help-block">Enter the answer text</span>
+    </div>
+    <div class="form-group">
+        <label for="input-question1-content" class="control-label">Answer 2</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="question.answer2isright"> Is right answer
+            </label>
+        </div>
+        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer2">
+        <span class="help-block">Enter the answer text</span>
+    </div>
+    <div class="form-group">
+        <label for="input-question1-content" class="control-label">Answer 3</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="question.answer3isright"> Is right answer
+            </label>
+        </div>
+        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer3">
+        <span class="help-block">Enter the answer text</span>
+    </div>
+    <div class="form-group">
+        <label for="input-question1-content" class="control-label">Answer 4</label>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="question.answer4isright"> Is right answer
+            </label>
+        </div>
+        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer4">
+        <span class="help-block">Enter the answer text</span>
+    </div>
+</div>

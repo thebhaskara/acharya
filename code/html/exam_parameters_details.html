@@ -1,0 +1,40 @@
+<div class="create-exam">
+    <h2>Add exam parameter</h2>
+    <form role="form">
+        <div class="form-group">
+            <label for="level-name">Level title</label>
+            <input type="text" class="form-control" id="topic-name" placeholder="Enter level title...">
+        </div>
+        <div class="form-group">
+            <label for="level-name">select topic</label>
+            <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
+                <input type="text" class="form-control" placeholder="level..." ng-model="topictext" 
+                       ng-change="openDropdown()">
+                <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
+                <ul class="dropdown-menu" role="menu">
+                    <li  ng-repeat="topic in topics | filter:topictext">
+                        <a href="#" ng-click="selectTopic(); closeDropdown();">{{topic.text}}</a>
+                    </li>
+                </ul>
+            </div>
+            <span class="help-block">enter topic.</span>
+        </div>
+        <div class="form-group">
+            <label for="level-name">select level</label>
+            <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
+                <input type="text" class="form-control" placeholder="level..." ng-model="question.leveltext" 
+                       ng-change="openDropdown()">
+                <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
+                <ul class="dropdown-menu" role="menu">
+                    <li  ng-repeat="level in levels | filter:question.leveltext">
+                        <a href="#" ng-click="selectLevel(); closeDropdown();">{{level.text}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        
+        <span class="help-block">enter level.</span>
+        <button type="submit" class="btn btn-default">Add this parameter</button>
+    </form>
+</div>

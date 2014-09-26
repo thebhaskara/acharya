@@ -1,9 +1,11 @@
 <?php
 class create_question
 {
-    function insert_into_db($questions, $scenario, $answers)
+    function insert_into_db($questions, $scenario)
     {
+        
         $scenario_id = $scenario->insert_into_db();
+        
         $scenario_obj = scenario::load($scenario_id);
         
         foreach($questions as $question)
@@ -13,10 +15,14 @@ class create_question
             
             $question_obj = question::load($question_id);
             
-            foreach ($answers as $answer)
+            foreach ($question->answers as $ans)
             {
+                $answer = new answer();
                 $answer->question = $question_obj;
-                $answer->description = "desc";
+                $answer->option = $ans[0];
+                $answer->description = '';
+                $answer->is_right_answer = $ans[1];
+                //$answer->description = "desc";
                 $answer->insert_into_db();
             }
         }

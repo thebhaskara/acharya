@@ -1,0 +1,13 @@
+.app-question-form {
+    border-bottom: 1px solid #eee;
+    padding: 0 15px;
+    padding-top: 10px;
+}
+.app-question-form:hover {
+    background-color: rgba(100, 100, 100, 0.05);
+}
+.scenario-form {}
+
+.btn-group .form-control-feedback{
+    top:0;
+}

@@ -20,7 +20,7 @@ define('DB_PASSWORD','');
 define('DB_NAME','kuchbhi');
 
 # Table Prefix
-define('TABLE_PREFIX','');
+define('TABLE_PREFIX','kuchbhi01');
 define('TABLE_QUESTION',TABLE_PREFIX.'question');
 define('TABLE_QUESTION_TYPE',TABLE_PREFIX.'questiontype');
 define('TABLE_SCENARIO',TABLE_PREFIX.'scenario');
