@@ -5,6 +5,7 @@ class scenario
     public $summary;
     public $instruction;
     public $content;
+    public $usage_count;
     
     public function insert_into_db()
     {
@@ -12,7 +13,8 @@ class scenario
         $scenario->summary = $this->summary;
         $scenario->instruction = $this->instruction;
         $scenario->content = $this->content;
-        
+        $scenario->usage_count = 0;
+
         return R::store($scenario);
     }
     

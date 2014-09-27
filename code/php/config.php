@@ -20,7 +20,7 @@ define('DB_PASSWORD','');
 define('DB_NAME','kuchbhi');
 
 # Table Prefix
-define('TABLE_PREFIX','kuchbhi01');
+define('TABLE_PREFIX','');
 define('TABLE_QUESTION',TABLE_PREFIX.'question');
 define('TABLE_QUESTION_TYPE',TABLE_PREFIX.'questiontype');
 define('TABLE_SCENARIO',TABLE_PREFIX.'scenario');
@@ -33,8 +33,12 @@ define('TABLE_EXAMPARAMETERS',TABLE_PREFIX.'examparameter');
 define('TABLE_SKILL',TABLE_PREFIX.'skill');
 define('TABLE_QUESTIONTOPICRELATION',TABLE_PREFIX.'questiontopicrelation');
 define('TABLE_EXAMSKILLRELATION',TABLE_PREFIX.'examskillrelation');
-define('TABLE_QUESTION_PAPER',TABLE_PREFIX.'question_paper');
-define('TABLE_QUESTION_PAPER_DETAIL',TABLE_PREFIX.'question_paper_detail');
+define('TABLE_QUESTION_PAPER',TABLE_PREFIX.'questionpaper');
+define('TABLE_QUESTION_PAPER_DETAIL',TABLE_PREFIX.'questionpaperdetail');
+define('TABLE_EXAMINER',TABLE_PREFIX.'examiner');
+define('TABLE_CANDIDATE',TABLE_PREFIX.'candidate');
+define('TABLE_RESULT',TABLE_PREFIX.'result');
+define('TABLE_RESULTDETAIL',TABLE_PREFIX.'resultdetail');
 
 
 # Encryption key

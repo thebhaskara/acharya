@@ -11,6 +11,7 @@ class question
     public $scenario_id;
     public $topics;
     public $answers;
+	public $usage_count;
     
     function insert_into_db()
     {
@@ -22,6 +23,7 @@ class question
         $question->level = level::load($this->level_id);
         //$question->topic = topic::load($this->topic_id); //will be used when a question belongs to just one topic
         $question->scenario = $this->scenario;
+        $question->usage_count = 0;
         
         foreach ($this->topic_ids as $topic_id)
         {

@@ -3,12 +3,14 @@ class question_paper
 {
     public $id;
     public $exam_id;
+    public $candidate_id;
     
     public function insert_into_db()
     {
-        $question_paper       = R::dispense(TABLE_QUESTION_PAPER);
-        $question_paper->exam = $this->exam;
-
+        $question_paper             = R::dispense(TABLE_QUESTION_PAPER);
+        $question_paper->exam       = $this->exam;
+        $question_paper->candidate  = $this->candidate;
+        
         return R::store($question_paper);
     }
     

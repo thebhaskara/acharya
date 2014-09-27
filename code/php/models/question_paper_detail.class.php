@@ -13,7 +13,7 @@ class question_paper_detail
         $question_paper_detail->question = $this->question;
         $question_paper_detail->correct_answer = $this->correct_answer;
 
-        return R::store($skill);
+        return R::store($question_paper_detail);
     }
     
     public function insert_directly_into_db($s)
