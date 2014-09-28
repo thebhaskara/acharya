@@ -8,7 +8,7 @@ class create_paper
                 //$topic_id = 1;
                 $conn = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME,DB_USER_NAME,DB_PASSWORD);
                 // execute the stored procedure
-                $sql = 'CALL CREATEPAPER(:examid, :candidateid)';
+                $sql = 'CALL CREATEPAPERNEW(:examid, :candidateid)';
                 //$q = $conn->query($sql);
                 //$q->setFetchMode(PDO::FETCH_ASSOC);
                 $stmt = $conn->prepare($sql);
