@@ -1,5 +1,7 @@
 <?php
 require_once('php/config.php');
+if(!$session->is_logged_in())
+    open_login_page();
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineExam">
@@ -27,32 +29,33 @@ require_once('php/config.php');
 
         <?php 
 include("html/nav_area.html"); 
-        ?>
+        ?>  
 
         <div class="row">
             <div class="col-sm-3">
                 <!-- left nav -->
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-5">
                 <?php
 include("html/exam_details.html");
                 ?>
             </div>
-            <div class="col-sm-5">
-                <?php
-include("html/exam_parameters_details.html");
-                ?>
-            </div>
         </div>
+
+        <script>
+            var Topics = <?php echo json_encode(topic::get_all()); ?>;
+            var ExperienceLevels = <?php echo json_encode(level::get_all()); ?>;
+        </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/lib/jquery-2.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/angular.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/summernote.min.js"></script>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/lib/angular-sanitize.min.js"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/summernote.min.js"></script>
         <script src="js/ready.js"></script>
-        <script src="js/anchorDirective.js"></script>
-        <script src="js/dropdownConroller.js"></script>
-        <script src="js/createExamController.js"></script>
+        <script src="js/angular/anchorDirective.js"></script>
+        <script src="js/angular/dropdownConroller.js"></script>
+        <script src="js/angular/createExamController.js"></script>
     </body>
 </html>

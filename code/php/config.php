@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors',true);
-define('SITE_HOME_URL', 'http://localhost:885/code/');
+define('SITE_HOME_URL', 'http://localhost:88/oes/');
 
 
 /*
@@ -41,11 +41,12 @@ define('TABLE_RESULT',TABLE_PREFIX.'result');
 define('TABLE_RESULTDETAIL',TABLE_PREFIX.'resultdetail');
 
 #users
-define('EXAMINER','examiner');
-define('APPLICANT','applicant');
+define('EXAMINER','Examiner');
+define('APPLICANT','Applicant');
 
 #session_id
 define('USER_KEY', 'user_data');
+define('USER_TYPE_KEY', 'user_type_data');
 
 # Encryption key
 define("ENCRYPTION_KEY", "!@#bhaskara$%^&*");
@@ -87,4 +88,8 @@ if(strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE')) session_cache_limiter("must-reva
 
 # DB start
 #manager::connect();
+data::connect();
+$session = new session_manager();
+$session->start();
+
 ?>

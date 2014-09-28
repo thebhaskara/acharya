@@ -50,7 +50,32 @@ class exam
     public static function load($id)
     {
         return R::load(TABLE_EXAM, $id);
+    }   
+
+    public static function get_all(){
+        $items = array();
+        $beans = R::findAll(TABLE_EXAM);
+
+        foreach($beans as $bean){
+            $item = exam::map_bean_to_object($bean);
+            array_push($items, $item);
+        }
+        return $items;
     }
+
+    public static function map_bean_to_object($bean){
+        $exam = new exam();
+        $exam->id               = $bean->id;
+        $exam->name             = $bean->name;
+        $exam->experience       = $bean->experience;
+        $exam->total_questions  = $bean->total_questions;
+        $exam->duration         = $bean->duration;
+        $exam->examiner_id      = $bean->examiner_id;
+        $exam->designation      = $bean->designation;
+        $exam->marks            = $bean->marks;
+        return $exam;
+    }
+
     
 }
 ?>

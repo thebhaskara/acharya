@@ -1,14 +1,15 @@
 <?php
 class session_manager
 {
-    static $current;
+    public $current;
+    
     function start()
     {
         session_start();
         $this->current = $_SESSION;
     }
     
-    function kill()
+    function close()
     {
         $_SESSION = $this->current; 
     }
@@ -18,6 +19,11 @@ class session_manager
         $this->current[$key] = $value;
     }    
     
+    function get($key)
+    {
+        return $this->current[$key];
+    }
+    
     public function validate_while_login($user, $user_name, $pwd)
     {
         if($user == EXAMINER)
@@ -26,13 +32,15 @@ class session_manager
             
             if($bean != null)
             {
+                $this->add(USER_TYPE_KEY, $user);
                 $this->add(USER_KEY, $bean);
-                echo 'valid examiner';
+                //echo 'valid examiner';
                 return true;
             }
             else
             {
-                echo 'invalid examiner';
+                //echo 'invalid examiner';
+                return false;
             }
         }
         else if($user == APPLICANT)
@@ -41,19 +49,30 @@ class session_manager
             
             if($bean != null)
             {
+                $this->add(USER_TYPE_KEY, $user);
                 $this->add(USER_KEY, $bean);
-                echo 'valid applicant';
+                //echo 'valid applicant';
                 return true;
             }
             else
             {
-                echo 'invalid applicant';
+                return false;
+                //echo 'invalid applicant';
             }
         }
         else
         {
-            echo "invalid user";
+            return false;
+            //echo "invalid user";
         }
+    }
+    
+    function is_examiner(){
+        return isset($this->current[USER_TYPE_KEY])? $this->current[USER_TYPE_KEY] == EXAMINER : false;
+    }
+    
+    function is_applicant(){
+        return isset($this->current[USER_TYPE_KEY])? $this->current[USER_TYPE_KEY] == APPLICANT : false;
     }
     
     function is_logged_in()
@@ -64,6 +83,7 @@ class session_manager
     function logout()
     {
         unset($this->current[USER_KEY]);
+        unset($this->current[USER_TYPE_KEY]);
     }
 }
 ?>

@@ -9,7 +9,7 @@ $topic = new topic();
 $topic->text = $post["text"];
 $topic->parent_topic_id = $post["parentTopicId"];
 
-data::connect();
+
 $id = $topic->insert_into_db();
 if($id<1){
     echo "false";

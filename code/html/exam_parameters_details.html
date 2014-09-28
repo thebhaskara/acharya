@@ -1,18 +1,27 @@
 <div class="create-exam">
+    <h2>Selected parameters are</h2>
+    <div class="alert alert-success alert-dismissible" role="alert" 
+         ng-repeat="parameter in exam.parameters">
+        <button type="button" class="close" ng-click="removeParameter()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <strong>{{parameter.questionsCount}}</strong> questions from topic <strong>{{parameter.topic.text}}</strong> of level <strong>{{parameter.level.text}}</strong>
+    </div>
+    <div class="alert alert-warning no-pameters-selected" role="alert">
+        <strong>Warning!</strong> No parameters are selected.
+    </div>
     <h2>Add exam parameter</h2>
     <form role="form">
         <div class="form-group">
-            <label for="level-name">Level title</label>
-            <input type="text" class="form-control" id="topic-name" placeholder="Enter level title...">
+            <label>Number of questions</label>
+            <input type="text" class="form-control" ng-model="exam.param.questionsCount">
         </div>
         <div class="form-group">
-            <label for="level-name">select topic</label>
+            <label>select topic: <span class="text-success"><em>{{temp.selectedTopic.text}}</em></span></label>
             <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="level..." ng-model="topictext" 
+                <input type="text" class="form-control" placeholder="topic..." ng-model="exam.param.topictext"
                        ng-change="openDropdown()">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">
-                    <li  ng-repeat="topic in topics | filter:topictext">
+                    <li  ng-repeat="topic in topics | filter:{text:exam.param.topictext}">
                         <a href="#" ng-click="selectTopic(); closeDropdown();">{{topic.text}}</a>
                     </li>
                 </ul>
@@ -20,21 +29,19 @@
             <span class="help-block">enter topic.</span>
         </div>
         <div class="form-group">
-            <label for="level-name">select level</label>
+            <label>select level: <span class="text-success"><em>{{temp.selectedLevel.text}}</em></span></label>
             <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="level..." ng-model="question.leveltext" 
-                       ng-change="openDropdown()">
+                <input type="text" class="form-control" placeholder="level..." ng-model="exam.param.leveltext"
+                       ng-change="openDropdown();">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">
-                    <li  ng-repeat="level in levels | filter:question.leveltext">
+                    <li  ng-repeat="level in levels | filter:{ text: exam.param.leveltext }">
                         <a href="#" ng-click="selectLevel(); closeDropdown();">{{level.text}}</a>
                     </li>
                 </ul>
             </div>
+            <span class="help-block">enter level.</span>
         </div>
-        
-        
-        <span class="help-block">enter level.</span>
-        <button type="submit" class="btn btn-default">Add this parameter</button>
+        <button class="btn btn-default" ng-click="addParameter()">Add this parameter</button>
     </form>
 </div>

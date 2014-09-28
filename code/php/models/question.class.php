@@ -29,13 +29,6 @@ class question
         {
             $relation = R::dispense(TABLE_QUESTIONTOPICRELATION);
             $topic = topic::load($topic_id);
-            
-            if (!$topic->id) 
-            { 
-                $topic->text = 'topic a';
-            }
-            
-            
             $relation->question = $question;
             $relation->topic = $topic;
             

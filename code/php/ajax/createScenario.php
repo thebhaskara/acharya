@@ -43,7 +43,7 @@ foreach ($ques as $que) {
 //echo alert($scenario);
 //echo alert($questions);
 //exit();
-data::connect();
+
 $id = create_question::insert_into_db($questions,$scenario);
 
 if($id>-1)

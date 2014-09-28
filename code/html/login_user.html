@@ -1,0 +1,30 @@
+<div class="add-level">
+    <h2>Login</h2>
+    <form role="form">
+        <div class="form-group">
+            <label>Examiner/Applicant : <span class="text-success">{{login.usertype}}</span></label>
+            <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
+                <input type="text" 
+                       class="form-control"
+                       ng-model="temp.usertypetext" 
+                       ng-change="openDropdown()">
+                <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
+                <ul class="dropdown-menu" role="menu">
+                    <li  ng-repeat="type in temp.usertypes | filter: temp.usertypetext">
+                        <a href="#" ng-click="closeDropdown(); selectUsertype(); ">{{type}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="level-name">User name</label>
+            <input type="text" class="form-control" ng-model="login.username">
+        </div>
+        <div class="form-group">
+            <label for="level-name">Password</label>
+            <input type="password" class="form-control" ng-model="login.password">
+        </div>
+
+        <button ng-click="login()" class="btn btn-default">Login</button>
+    </form>
+</div>

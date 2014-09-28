@@ -12,7 +12,7 @@ $(document).ready(function(){
 //    }, 100);
 //}
 
-function doAPost(options){
+function post(options){
     $.ajax({
         type: "POST",
         url: 'ajax.php?a='+options.action,
@@ -53,7 +53,9 @@ Array.prototype.contains = function(obj) {
     return false;
 };
 
-var onlineExam = angular.module('onlineExam', []);
+var onlineExam = angular.module('onlineExam', ['ngSanitize']);
+
+//angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'ngSanitize'])
 
 //var ExperienceLevels = [
 //    {

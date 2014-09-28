@@ -1,6 +1,7 @@
 <?php
 require_once('php/config.php');
-data::connect();
+if(!$session->is_logged_in())
+    open_login_page();
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineExam">
@@ -47,14 +48,15 @@ include("html/add_scenario_form.html");
             var ExperienceLevels = <?php echo json_encode(level::get_all()); ?>;
         </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/lib/jquery-2.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/angular.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/summernote.min.js"></script>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/lib/angular-sanitize.min.js"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/summernote.min.js"></script>
         <script src="js/ready.js"></script>
-        <script src="js/anchorDirective.js"></script>
-        <script src="js/dropdownConroller.js"></script>
-        <script src="js/addScenarioController.js"></script>
+        <script src="js/angular/anchorDirective.js"></script>
+        <script src="js/angular/dropdownConroller.js"></script>
+        <script src="js/angular/addScenarioController.js"></script>
     </body>
 </html>

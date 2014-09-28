@@ -65,10 +65,6 @@ BEGIN
         SET q.usage_count = (q.usage_count + 1), s.usage_count = (s.usage_count + 1)
         WHERE qpd.question_paper_id = question_paper_number;
 
-        UPDATE question
-        SET usage_count = (usage_count + 1)
-        WHERE id IN (SELECT question_id FROM questionpaperdetail WHERE question_paper_id = question_paper_number);
-
         SET temp_counter = 0;
 
 

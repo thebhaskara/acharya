@@ -17,8 +17,8 @@ class examiner
         $examiner->first_name    = $this->first_name;
         $examiner->middle_name   = $this->middle_name;
         $examiner->last_name     = $this->last_name;
-        $examiner->designation   = $this->designation;
-        $examiner->joining_date  = $this->joining_date;
+        //$examiner->designation   = $this->designation;
+        //$examiner->joining_date  = $this->joining_date;
         $examiner->experience    = $this->experience;
         $examiner->user_name            = $this->user_name;
         $examiner->password             = $this->password;
@@ -36,6 +36,5 @@ class examiner
     {
         return R::load(TABLE_EXAMINER, $id);
     }
-    
 }
 ?>

@@ -1,11 +1,11 @@
 /*jslint browser: true, devel: true, sloppy: true, todo: true*/
 /*global $, angular, helper*/
-onlineExam.directive('myElement', function($parse){
+onlineExam.directive('mySummernote', function($parse){
     return {
         link : function(scope, element, attributes){
             // $parse works out how to get the value.
             // This returns a function that returns the result of your ng-model expression.
-            var modelGetter = $parse(attributes['myElement']);
+            var modelGetter = $parse(attributes['mySummernote']);
             //console.log(modelGetter(scope));
 
             // This returns a function that lets us set the value of the ng-model binding expression:
@@ -61,7 +61,7 @@ onlineExam.controller('addScenario', function ($scope,$http) {
             },
             questions: questions
         };
-        doAPost({
+        post({
             action: 'createscenario',
             data: dataAdsds,
             success: function(data){

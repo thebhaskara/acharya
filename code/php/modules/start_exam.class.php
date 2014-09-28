@@ -29,6 +29,8 @@ class start_exam
         
         $rows = R::getAll( $sql, array(':id'=>$question_paper_id));
 
+        shuffle($rows);
+        
         $scenario = array();
         $scenarios = array();
         $question = array();
@@ -62,31 +64,3 @@ class start_exam
     }
 }
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

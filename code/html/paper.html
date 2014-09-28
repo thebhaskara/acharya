@@ -1,0 +1,16 @@
+<div ng-repeat="(scenarioId, scenario) in scenarios" ng-init="scenario.id = scenarioId">
+    <div class="page-header">
+        <h1><small>{{scenario.instruction}}</small></h1>
+    </div>
+    <div class="jumbotron" ng-bind-html="scenario.scenario_content">
+    </div>
+    <div ng-repeat="(questionId, question) in scenario.questions" ng-init="questionInit()">
+        <h3><span class="label label-primary pull-left">{{$index +1}}.</span> <span ng-bind-html="question.question_content"></span></h3>
+        <div class="radio" ng-repeat="(answerId, answer) in question.answers" ng-init="answer = {text:answer, id:answerId}">
+            <label>
+                <input type="radio" name="answer{{questionId}}" value="{{answer.text}}" ng-model="answer.given" ng-change="changeOption(questionId, answer.text)">
+                {{answer.text}}
+            </label>
+        </div>
+    </div>
+</div>

@@ -12,7 +12,7 @@ $level->correct_answer_weightage = $post["correct"];
 $level->wrong_answer_weightage = $post["wrong"];
 
 
-data::connect();
+
 $id = $level->insert_into_db();
 if($id<1){
     echo false;

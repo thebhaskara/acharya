@@ -13,19 +13,16 @@ onlineExam.controller('addOthers', function ($scope,$http) {
             text: $scope.topicName,
             parentTopicId: $scope.parentTopic && $scope.parentTopic.id ? $scope.parentTopic.id : -1
         };
-        doAPost({
+        post({
             action: 'createtopic',
             data: data,
             success: function(data){
-                if(data){
+                if(data)
                     $scope.topics = JSON.parse(data);
-                } else {
-                    doNothing();
-                }
-                $scope.resetTopicFields();
             },
             error: doNothing
         });
+        $scope.resetTopicFields();
     };
 
     $scope.resetTopicFields = function(){
@@ -36,20 +33,14 @@ onlineExam.controller('addOthers', function ($scope,$http) {
     };
 
     $scope.createLevel = function(){
-
         var data = $scope.level;
-
-        doAPost({
+        post({
             action: 'createlevel',
             data:data,
-            success: function(data){
-                if(!data){
-                    doNothing();
-                }
-                $scope.resetLevelFields();
-            },
+            success: function(data){},
             error: doNothing
         });
+        $scope.resetLevelFields();
     };
 
     $scope.resetLevelFields = function(){

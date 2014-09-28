@@ -3,27 +3,31 @@
     <form role="form">
         <div class="form-group">
             <label for="level-name">Name of exam</label>
-            <input type="text" class="form-control" id="topic-name" placeholder="Enter level title...">
+            <input type="text" class="form-control" ng-model="exam.name">
         </div>
         <div class="form-group">
             <label for="level-name">Experience in months</label>
-            <input type="text" class="form-control" id="topic-name" placeholder="Enter experience...">
+            <input type="text" class="form-control" ng-model="exam.experience">
         </div>
         <div class="form-group">
             <label for="level-name">Total number of questions</label>
-            <input type="text" class="form-control" id="topic-name" placeholder="Enter weightage...">
+            <input type="text" class="form-control" ng-model="exam.questionsCount">
         </div>
         <div class="form-group">
             <label for="level-name">Duration in min</label>
-            <input type="text" class="form-control" id="topic-name" placeholder="Enter weightage...">
+            <input type="text" class="form-control" ng-model="exam.duration">
         </div>
         <div class="form-group">
-            <label for="level-name">Designation</label>
-            <input type="text" class="form-control" id="topic-name" placeholder="Enter weightage...">
+            <label for="level-name">Candidates designation</label>
+            <input type="text" class="form-control" ng-model="exam.designation">
         </div>
         <div class="form-group">
-            <label for="level-name">Marks</label>
-            <input type="text" class="form-control" id="topic-name" placeholder="Enter weightage...">
+            <label for="level-name">Total marks</label>
+            <input type="text" class="form-control" ng-model="exam.marks">
         </div>
+        <?php
+            include('html\exam_parameters_details.html');
+        ?>
+        <button class="btn btn-default" ng-click="submit()">Create exam</button>
     </form>
 </div>

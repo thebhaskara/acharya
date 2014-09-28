@@ -1,3 +1,44 @@
+CREATE TABLE `candidate` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `first_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `middle_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `experience` int(11) unsigned DEFAULT NULL,
+    `current_organization` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `user_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+CREATE TABLE `questionpaper` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `exam_id` int(11) unsigned DEFAULT NULL,
+    `candidate_id` int(11) unsigned DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `index_foreignkey_questionpaper_exam` (`exam_id`),
+    KEY `index_foreignkey_questionpaper_candidate` (`candidate_id`),
+    CONSTRAINT `c_fk_questionpaper_candidate_id` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+    CONSTRAINT `c_fk_questionpaper_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+[12:36:12] Atul Agrawal: 
+
+
+CREATE TABLE `questionpaperdetail` (
+    `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+    `correct_answer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+    `question_paper_id` int(11) unsigned DEFAULT NULL,
+    `question_id` int(11) unsigned DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `index_foreignkey_questionpaperdetail_questionpaper` (`question_paper_id`),
+    KEY `index_foreignkey_questionpaperdetail_question` (`question_id`),
+    CONSTRAINT `c_fk_questionpaperdetail_question_id` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
+    CONSTRAINT `c_fk_questionpaperdetail_question_paper_id` FOREIGN KEY (`question_paper_id`) REFERENCES `questionpaper` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+
+
+
+
+
 DELIMITER $$
 CREATE PROCEDURE CREATEPAPER (IN examid INT, IN candidateid INT)#, IN number_of_question_papers INT)
 BEGIN

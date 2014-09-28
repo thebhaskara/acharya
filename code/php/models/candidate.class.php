@@ -17,7 +17,7 @@ class candidate
         $candidate->middle_name          = $this->middle_name;
         $candidate->last_name            = $this->last_name;
         $candidate->experience           = $this->experience;
-        $candidate->current_organization = $this->current_organization;
+        //$candidate->current_organization = $this->current_organization;
         $candidate->user_name            = $this->user_name;
         $candidate->password             = $this->password;
 
@@ -34,6 +34,32 @@ class candidate
     {
         return R::load(TABLE_CANDIDATE, $id);
     }
+
+    public static function get_all(){
+        $items = array();
+        $beans = R::findAll(TABLE_CANDIDATE);
+
+        foreach($beans as $bean){
+            $item = candidate::map_bean_to_object($bean);
+            array_push($items, $item);
+        }
+        return $items;
+    }
+
+    public static function map_bean_to_object($bean){
+        $candidate = new candidate  ();
+        $candidate->id                   = $bean->id;
+        $candidate->first_name           = $bean->first_name;
+        $candidate->middle_name          = $bean->middle_name;
+        $candidate->last_name            = $bean->last_name;
+        $candidate->experience           = $bean->experience;
+        //$candidate->current_organization = $bean->current_organization;
+        //$candidate->user_name            = $bean->user_name;
+        //$candidate->password             = $bean->password;
+
+        return $candidate;
+    }
+
     
 }
 ?>

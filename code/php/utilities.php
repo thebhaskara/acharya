@@ -55,5 +55,8 @@ function render_view($name, $model = ''){
     return '';
 }
 
-
+function open_login_page(){
+    header("Location: ".SITE_HOME_URL."user.php");
+    //exit;
+}
 ?>
