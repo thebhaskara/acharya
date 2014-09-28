@@ -17,11 +17,11 @@ onlineExam.controller('paper', function ($scope) {
             data:data,
             action: 'submitExam',
             success: function(data){
-                alert(data);
+                alert('great !');
                 console.log(data);
             },
             error: function(data){
-                alert(data);
+                alert('Noooo !');
                 console.log(data);
             }
         });
@@ -29,6 +29,7 @@ onlineExam.controller('paper', function ($scope) {
     
     $scope.questionInit = function(){
         $scope.data[this.questionId] = "";
+        this.question.count = count($scope.data);
     }
     
     $scope.changeOption = function(questionid, answer){

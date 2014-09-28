@@ -36,12 +36,16 @@ onlineExam.controller('createPaper', function ($scope) {
             success: function(data){
                 try{
                     var d = JSON.parse(data);
-                    if(d)
+                    if(d) {
                         alert('papers are created!');
+                        return;
+                    }
                 } catch(ex) {}
-                alert(data);
+                alert('Noooo !');
             },
-            error: function(data){ alert(data); }
+            error: function(data){ 
+                alert('Noooo!'); 
+            }
         });
     };
 });

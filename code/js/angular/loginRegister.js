@@ -6,12 +6,12 @@ onlineExam.controller('loginRegister', function ($scope) {
         usertypes: ['Examiner', 'Applicant']
     };
     $scope.login = {};
-    
+
     $scope.selectUsertype = function(){
         $scope.login.usertype = this.type;
         $scope.temp.usertypetext = this.type;
     };
-    
+
     $scope.login = function(){
         var data = $scope.login;
         post({
@@ -22,21 +22,21 @@ onlineExam.controller('loginRegister', function ($scope) {
                 if(d){
                     window.location.reload();
                 } else {
-                    alert(data);
+                    alert("Nooo !");
                 }
             },
             error: function(data){
-                alert(data);
+                alert("Nooo !");
             }
         });
-        
+
     };
-    
+
     $scope.selectRegisterUsertype = function(){
         $scope.temp.regusertypetext = this.type;
         $scope.register.ussertype = this.type;
     };
-    
+
     $scope.register = {};
     $scope.registerSubmit = function(){
         var data = $scope.register;
@@ -44,10 +44,10 @@ onlineExam.controller('loginRegister', function ($scope) {
             action: 'register',
             data: data,
             success: function(data){
-                alert(data);
+                alert("Nooo !");
             },
             error: function(data){
-                alert(data);
+                alert("Nooo !");
             }
         });
     }

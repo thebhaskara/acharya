@@ -14,6 +14,9 @@ class store_result
         
         $rows = R::getAll( $sql, array(':id'=>$candidate_id));
         
+        if(!isset($rows) || $rows == null)
+            exit;
+        
         foreach($rows as $row)
         {
             $question_paper_id = $row['id'];
