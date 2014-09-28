@@ -2,16 +2,17 @@
 class result
 {
     public $id;
-    public $user_id;
+    public $candidate_id;
     public $question_paper_id;
     public $total_marks;
+    public $result_details;
     
     public function insert_into_db()
     {
-        $result                     = R::dispense(TABLE_RESULT);
-        $result->user_id            = $this->user_id;
-        $result->question_paper_id  = $this->question_paper_id;
-        $result->total_marks        = $this->total_marks;
+        $result                  = R::dispense(TABLE_RESULT);
+        $result->candidate       = $this->candidate;
+        $result->question_paper  = $this->question_paper;
+        $result->total_marks     = $this->total_marks;
 
         return R::store($result);
     }

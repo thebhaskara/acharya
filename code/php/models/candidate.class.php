@@ -7,15 +7,19 @@ class candidate
     public $last_name;
     public $experience; //in months
     public $current_organization;
+    public $user_name;
+    public $password;
     
     public function insert_into_db()
     {
-        $candidate                        = R::dispense(TABLE_CANDIDATE);
+        $candidate                       = R::dispense(TABLE_CANDIDATE);
         $candidate->first_name           = $this->first_name;
         $candidate->middle_name          = $this->middle_name;
         $candidate->last_name            = $this->last_name;
         $candidate->experience           = $this->experience;
         $candidate->current_organization = $this->current_organization;
+        $candidate->user_name            = $this->user_name;
+        $candidate->password             = $this->password;
 
         return R::store($candidate);
     }

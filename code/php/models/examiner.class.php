@@ -8,6 +8,8 @@ class examiner
     public $designation;
     public $joining_date;
     public $experience; // in months
+    public $user_name;
+    public $password;
     
     public function insert_into_db()
     {
@@ -18,6 +20,8 @@ class examiner
         $examiner->designation   = $this->designation;
         $examiner->joining_date  = $this->joining_date;
         $examiner->experience    = $this->experience;
+        $examiner->user_name            = $this->user_name;
+        $examiner->password             = $this->password;
 
         return R::store($examiner);
     }

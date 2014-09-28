@@ -40,6 +40,12 @@ define('TABLE_CANDIDATE',TABLE_PREFIX.'candidate');
 define('TABLE_RESULT',TABLE_PREFIX.'result');
 define('TABLE_RESULTDETAIL',TABLE_PREFIX.'resultdetail');
 
+#users
+define('EXAMINER','examiner');
+define('APPLICANT','applicant');
+
+#session_id
+define('USER_KEY', 'user_data');
 
 # Encryption key
 define("ENCRYPTION_KEY", "!@#bhaskara$%^&*");
