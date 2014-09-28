@@ -1,7 +1,7 @@
 <?php
 class session_manager
 {
-    $current;
+    static $current;
     function start()
     {
         session_start();

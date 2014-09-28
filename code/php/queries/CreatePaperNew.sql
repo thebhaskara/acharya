@@ -48,8 +48,11 @@ BEGIN
             INNER JOIN scenario s ON s.id = sl.scenario_id
             ORDER BY s.usage_count, s.id, q.usage_count, q.id);
 
+            #SELECT * FROM questionscenariolist;
+
             INSERT INTO questionpaperdetail (question_paper_id, question_id)
             SELECT question_paper_number, question_number FROM questionscenariolist
+            WHERE question_number NOT IN (SELECT question_id FROM questionpaperdetail WHERE question_paper_id = question_paper_number)
             LIMIT 0, questions;
 
 		SET temp_counter = temp_counter + 1;
