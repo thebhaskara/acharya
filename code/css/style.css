@@ -14,3 +14,4 @@
 
 h2+.alert-warning{display:block;}
 .alert-success+.alert-warning{display: none;}
+

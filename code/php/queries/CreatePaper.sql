@@ -20,7 +20,7 @@ CREATE TABLE `questionpaper` (
     CONSTRAINT `c_fk_questionpaper_candidate_id` FOREIGN KEY (`candidate_id`) REFERENCES `candidate` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
     CONSTRAINT `c_fk_questionpaper_exam_id` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-[12:36:12] Atul Agrawal: 
+#[12:36:12] Atul Agrawal: 
 
 
 CREATE TABLE `questionpaperdetail` (
@@ -36,143 +36,74 @@ CREATE TABLE `questionpaperdetail` (
 ) ENGINE=InnoDB AUTO_INCREMENT=239 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
 
 
-
-
-
 DELIMITER $$
-CREATE PROCEDURE CREATEPAPER (IN examid INT, IN candidateid INT)#, IN number_of_question_papers INT)
+CREATE PROCEDURE CREATEPAPERNEW (IN examid INT, IN candidateid INT)#, IN number_of_question_papers INT)
 BEGIN
-        #BEGIN
-        DECLARE total_number_of_questions INT DEFAULT 0;
-        DECLARE exam_duration INT DEFAULT 0;
-        DECLARE total_marks INT DEFAULT 0;
-        
-        DECLARE exam_parameter_count INT DEFAULT 0;
-        DECLARE questions INT DEFAULT 0;
-        DECLARE topic INT DEFAULT 0;
-        DECLARE difficulty_level INT DEFAULT 0;
-        DECLARE temp_counter INT DEFAULT 0;
-        DECLARE question_paper_number INT DEFAULT 0;
-        
-        DECLARE question_selected_counter INT DEFAULT 0;
-        DECLARE question_counter INT DEFAULT 0;
+#BEGIN
+DECLARE total_number_of_questions INT DEFAULT 0;
+DECLARE exam_duration INT DEFAULT 0;
+DECLARE total_marks INT DEFAULT 0;
 
-        DECLARE scenario_selected INT DEFAULT 0;
-        DECLARE temp_count INT DEFAULT 0;
+DECLARE exam_parameter_count INT DEFAULT 0;
+DECLARE questions INT DEFAULT 0;
+DECLARE topic INT DEFAULT 0;
+DECLARE difficulty_level INT DEFAULT 0;
+DECLARE temp_counter INT DEFAULT 0;
+DECLARE question_paper_number INT DEFAULT 0;
 
-        DECLARE temp_question_id INT DEFAULT 0;
+SELECT total_questions, duration, marks INTO total_number_of_questions, exam_duration, total_marks
+FROM exam WHERE id = examid;
 
-        DECLARE extra_questions INT DEFAULT 0;
+#create a temp table with all the exam parameters for a particular exam
+DROP TABLE IF EXISTS examparameters;
+CREATE TEMPORARY TABLE IF NOT EXISTS examparameters AS (Select * FROM examparameter where exam_id = examid);
+SET exam_parameter_count = (Select count(1) FROM examparameters);
+#END
 
-		DECLARE temp INT DEFAULT 0;
+INSERT INTO questionpaper (exam_id, candidate_id) VALUES (examid, candidateid);
+SET question_paper_number = (SELECT id FROM questionpaper WHERE exam_id = examid ORDER BY id DESC LIMIT 1);
 
-        SELECT total_questions, duration, marks INTO total_number_of_questions, exam_duration, total_marks
-        FROM exam WHERE id = examid;
+WHILE temp_counter < exam_parameter_count DO
+SELECT number_of_questions, topic_id, level_id INTO questions, topic, difficulty_level
+FROM examparameters
+WHERE exam_id = examid
+ORDER BY id
+LIMIT temp_counter, 1;
 
-        #create a temp table with all the exam parameters for a particular exam
-        DROP TABLE IF EXISTS examparameters;
-        CREATE TEMPORARY TABLE IF NOT EXISTS examparameters AS (Select * FROM examparameter where exam_id = examid);
-        SET exam_parameter_count = (Select count(1) FROM examparameters);
-        #END
+DROP TABLE IF EXISTS scenariolist;
+CREATE TEMPORARY TABLE IF NOT EXISTS scenariolist AS(
+    SELECT scenario_id FROM question q
+    INNER JOIN questiontopicrelation qt ON qt.question_id = q.id
+    WHERE qt.topic_id = topic
+    AND q.level_id = difficulty_level
+    GROUP BY scenario_id
+    HAVING COUNT(1) >= 2);
 
-        #WHILE number_of_question_papers > 0 DO
-            INSERT INTO questionpaper (exam_id, candidate_id) VALUES (examid, candidateid);
-            SET question_paper_number = (SELECT id FROM questionpaper WHERE exam_id = examid ORDER BY id DESC LIMIT 1);
-            WHILE temp_counter < exam_parameter_count DO
-                SELECT number_of_questions, topic_id, level_id INTO questions, topic, difficulty_level
-                FROM examparameters
-                WHERE exam_id = examid
-                ORDER BY id
-                LIMIT temp_counter, 1;
+DROP TABLE IF EXISTS questionscenariolist;
+CREATE TEMPORARY TABLE IF NOT EXISTS questionscenariolist AS(
+    SELECT q.id question_number, s.id scenario_number FROM question q
+    INNER JOIN scenariolist sl ON sl.scenario_id = q.scenario_id
+    INNER JOIN scenario s ON s.id = sl.scenario_id
+    ORDER BY s.usage_count, s.id, q.usage_count, q.id);
 
-                #CREATE TEMPORARY TABLE IF NOT EXISTS questionlist AS 
-                #(SELECT question_id INTO FROM questiontopicrelation
-                #WHERE topic_id = topic);
+#SELECT * FROM questionscenariolist;
 
-                DROP TABLE IF EXISTS questionlist;
+INSERT INTO questionpaperdetail (question_paper_id, question_id)
+SELECT question_paper_number, question_number FROM questionscenariolist
+WHERE question_number NOT IN (SELECT question_id FROM questionpaperdetail WHERE question_paper_id = question_paper_number)
+LIMIT 0, questions;
 
-                CREATE TEMPORARY TABLE IF NOT EXISTS questionlist AS(
-                SELECT * FROM question
-                WHERE scenario_id in (
-                SELECT scenario_id FROM question q
-                INNER JOIN questiontopicrelation qt ON qt.question_id = q.id
-                WHERE qt.topic_id = topic
-                AND q.level_id = difficulty_level
-                GROUP BY scenario_id
-                HAVING COUNT(1) >= 2));
+SET temp_counter = temp_counter + 1;
 
-                DROP TABLE IF EXISTS scenariolist;
-                CREATE TEMPORARY TABLE IF NOT EXISTS scenariolist AS(
-                SELECT * FROM scenario
-                WHERE id in (SELECT DISTINCT scenario_id FROM questionlist)
-                ORDER BY id);
+END WHILE;
 
-                WHILE question_selected_counter < questions DO
+UPDATE question q
+INNER JOIN questionpaperdetail qpd ON qpd.question_id = q.id
+INNER JOIN scenario s ON s.id = q.scenario_id
+SET q.usage_count = (q.usage_count + 1), s.usage_count = (s.usage_count + 1)
+WHERE qpd.question_paper_id = question_paper_number;
 
-                    SELECT id INTO scenario_selected FROM scenariolist
-                    ORDER BY usage_count
-                    LIMIT question_counter, 1;
-
-                    SET temp_count = (SELECT COUNT(1) FROM questionlist WHERE scenario_id = scenario_selected);
-
-                    SET question_selected_counter = question_selected_counter + temp_count;
-                    SET question_counter = question_counter + 1;
-
-                    #WHILE temp_count > 0 DO
-#
-					#	SET temp = temp_count - 1;
-#
-                    #    SELECT id INTO temp_question_id
-                    #    FROM questionlist
-                    #    WHERE scenario_id = scenario_selected
-                    #    ORDER BY id DESC
-                    #    LIMIT temp, 1;
-#
-                    #    INSERT INTO questionpaperdetail (question_paper_id, question_id) 
-                    #    VALUES(question_paper_number, temp_question_id);
-                    #    SET temp_count = temp_count - 1;
-                    #END WHILE;
-
-                    INSERT INTO questionpaperdetail (question_paper_id, question_id)
-                    SELECT question_paper_number, id FROM questionlist WHERE scenario_id = scenario_selected;
-
-                    UPDATE scenario
-                    SET usage_count = usage_count + 1
-                    WHERE id = scenario_selected;
-
-                    #SET temp_count = 0;
-
-                END WHILE;
-
-                IF question_selected_counter <> questions THEN
-				
-					SET extra_questions = question_selected_counter - questions;
-					
-                    DROP TABLE IF EXISTS extraquestions;
-					CREATE TEMPORARY TABLE IF NOT EXISTS extraquestions AS(
-					SELECT question_id FROM questionpaperdetail
-                    WHERE question_paper_id = question_paper_number
-                    ORDER BY question_id DESC
-                    LIMIT extra_questions);
-                    
-                    DELETE FROM questionpaperdetail
-                    WHERE question_id IN (SELECT question_id FROM extraquestions)
-					AND question_paper_id = question_paper_number;
-                END IF;
-
-                SET question_selected_counter = 0;
-                SET question_counter = 0;				
-				SET temp_counter = temp_counter + 1;
-				
-            END WHILE;
-
-            UPDATE question
-            SET usage_count = (usage_count + 1)
-            WHERE id IN (SELECT question_id FROM questionpaperdetail WHERE question_paper_id = question_paper_number);
-
-            SET temp_counter = 0;
-          #  number_of_question_papers = number_of_question_papers - 1;
-        #END WHILE;
+SET temp_counter = 0;
 
 
 END$$
