@@ -2,6 +2,8 @@
 require_once('php/config.php');
 if(!$session->is_logged_in())
     open_login_page();
+if(!$session->is_examiner())
+    open_login_page();
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineExam">
