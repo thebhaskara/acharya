@@ -7,15 +7,19 @@ class result_detail
     public $answer;
     public $explanation;
     public $weightage;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
-        $result_detail               = R::dispense(TABLE_RESULTDETAIL);
-        $result_detail->result    = $this->result;
-        $result_detail->question  = $this->question;
-        $result_detail->answer       = $this->answer;
-        $result_detail->explanation  = $this->explanation;
-        $result_detail->weightage    = $this->weightage;
+        $result_detail              = R::dispense(TABLE_RESULTDETAIL);
+        $result_detail->result      = $this->result;
+        $result_detail->question    = $this->question;
+        $result_detail->answer      = $this->answer;
+        $result_detail->explanation = $this->explanation;
+        $result_detail->weightage   = $this->weightage;
+        $result_detail->insert_time = NOW;
+        $result_detail->last_updated_time = NOW;
 
         return R::store($result_detail);
     }

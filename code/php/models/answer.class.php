@@ -6,6 +6,8 @@ class answer
     public $option;
     public $description;
     public $is_right_answer;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
@@ -14,6 +16,8 @@ class answer
         $answer->option = $this->option;
         $answer->description = $this->description;
         $answer->is_right_answer = $this->is_right_answer;
+        $answer->insert_time = NOW;
+        $answer->last_updated_time = NOW;
 
         return R::store($answer);
     }

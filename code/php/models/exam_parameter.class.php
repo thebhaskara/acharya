@@ -6,14 +6,18 @@ class exam_parameter
     public $number_of_questions; //specific to topic
     public $topic_id;
     public $level_id;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
         $exam_parameter                       = R::dispense(TABLE_EXAMPARAMETERS);
         $exam_parameter->exam                 = $this->exam;
         $exam_parameter->number_of_questions  = $this->number_of_questions;
-        $exam_parameter->topic_id             = $this->topic_id;
-        $exam_parameter->level_id             = $this->level_id;
+        $exam_parameter->topic                = topic::load($this->topic_id);
+        $exam_parameter->level                = level::load($this->level_id);
+        $exam_parameter->insert_time          = NOW;
+        $exam_parameter->last_updated_time          = NOW;
 
         return R::store($exam_parameter);
     }

@@ -10,6 +10,8 @@ class exam
     public $designation;
     public $marks;
     public $skill_ids;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
@@ -21,22 +23,26 @@ class exam
         $exam->examiner         = examiner::load($this->examiner_id);
         $exam->designation      = $this->designation;
         $exam->marks            = $this->marks;
+        $exam->insert_time      = NOW;
+        $exam->last_updated_time      = NOW;
 
-        foreach ($this->skill_ids as $skill_id)
-        {
-            $relation = R::dispense(TABLE_EXAMSKILLRELATION);
-            $skill = skill::load($skill_id);
-            
-            if (!$skill->id) 
-            {
-                $skill->name = 'operating system';
-            }
-            
-            $relation->exam = $exam;
-            $relation->skill = $skill;
-            
-            $ID = R::store($relation);
-        }
+        //not used right now
+        
+        //foreach ($this->skill_ids as $skill_id)
+        //{
+        //    $relation = R::dispense(TABLE_EXAMSKILLRELATION);
+        //    $skill = skill::load($skill_id);
+        //    
+        //    if (!$skill->id) 
+        //    {
+        //        $skill->name = 'operating system';
+        //    }
+        //    
+        //    $relation->exam = $exam;
+        //    $relation->skill = $skill;
+        //    
+        //    $ID = R::store($relation);
+        //}
         
         return R::store($exam);
     }

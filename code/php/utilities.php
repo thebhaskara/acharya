@@ -55,6 +55,20 @@ function render_view($name, $model = ''){
     return '';
 }
 
+/**
+ * renders a view by passing model object to it
+ */
+function render($name, $model = ''){
+    if(isset($name)){
+        ob_start();
+        include($name);
+        $out1 = ob_get_contents();
+        ob_end_clean();
+        return $out1;
+    }
+    return '';
+}
+
 function open_login_page(){
     header("Location: ".SITE_HOME_URL."user.php");
     //exit;

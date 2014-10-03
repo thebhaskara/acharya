@@ -9,6 +9,8 @@ class candidate
     public $current_organization;
     public $user_name;
     public $password;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
@@ -19,7 +21,9 @@ class candidate
         $candidate->experience           = $this->experience;
         //$candidate->current_organization = $this->current_organization;
         $candidate->user_name            = $this->user_name;
-        $candidate->password             = $this->password;
+        $candidate->password             = encrypt($this->password);
+        $candidate->insert_time          = NOW;
+        $candidate->last_updated_time    = NOW;
 
         return R::store($candidate);
     }

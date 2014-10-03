@@ -13,7 +13,6 @@ class create_exam
         }
         
         return $exam_id;
-        
     }
 }
 ?>

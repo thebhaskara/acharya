@@ -5,6 +5,8 @@ class topic
     public $text;
     public $parent_topic_id;
     public $parentTopic;
+    public $insert_time;
+    public $last_updated_time;
 
     public function insert_into_db()
     {
@@ -13,6 +15,8 @@ class topic
         $topic->text = $this->text;
         if($this->parent_topic_id>0)
             $topic->parentTopic = topic::load($this->parent_topic_id);
+        $topic->insert_time = NOW;
+        $topic->last_updated_time = NOW;
 
         return R::store($topic);
     }

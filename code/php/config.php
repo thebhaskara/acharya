@@ -39,6 +39,17 @@ define('TABLE_EXAMINER',TABLE_PREFIX.'examiner');
 define('TABLE_CANDIDATE',TABLE_PREFIX.'candidate');
 define('TABLE_RESULT',TABLE_PREFIX.'result');
 define('TABLE_RESULTDETAIL',TABLE_PREFIX.'resultdetail');
+define('TABLE_QUESTION_PAPER_STATUS',TABLE_PREFIX.'questionpaperstatus');
+
+# question paper status
+define('CREATED_REVIEW_PENDING','created and waiting for review');
+define('REVIEWED_READY_TO_ATEMPT','reviewed and ready to attempt');
+define('ATTEMPT_IN_PROGRESS','attempt in progress');
+define('ATTEMPTED','attempted');
+define('RESULT_DECLARED','result declared');
+
+# current time
+define('NOW', date('Y-m-d H:i:s'));
 
 #users
 define('EXAMINER','Examiner');

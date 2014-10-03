@@ -6,14 +6,18 @@ class level
     public $experience;
     public $correct_answer_weightage;
     public $wrong_answer_weightage;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
-        $level  = R::dispense(TABLE_LEVEL);
-        $level->text = $this->text;
-        $level->experience = $this->experience;
+        $level                           = R::dispense(TABLE_LEVEL);
+        $level->text                     = $this->text;
+        $level->experience               = $this->experience;
         $level->correct_answer_weightage = $this->correct_answer_weightage;
-        $level->wrong_answer_weightage = $this->wrong_answer_weightage;
+        $level->wrong_answer_weightage   = $this->wrong_answer_weightage;
+        $level->insert_time              = NOW;
+        $level->last_updated_time              = NOW;
 
         return R::store($level);
     }

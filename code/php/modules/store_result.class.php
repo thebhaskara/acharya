@@ -20,7 +20,7 @@ class store_result
         foreach($rows as $row)
         {
             $question_paper_id = $row['id'];
-//            echo $question_paper_id;
+            //echo $question_paper_id;
         }
         
         $result = new result();
@@ -70,11 +70,11 @@ class store_result
             $obtained_marks = $row['obtained'];
         }
         
-//       echo $total_marks;
-//       echo "<br>";
-//       
-//       echo $obtained_marks;
-//       echo "<br>";
+        //echo $total_marks;
+        //echo "<br>";
+        //
+        //echo $obtained_marks;
+        //echo "<br>";
         
         $sql = 'select e.marks from exam e
                 inner join questionpaper as qp on qp.exam_id = e.id
@@ -84,7 +84,7 @@ class store_result
         
         foreach($rows as $row)
         {
-//            echo $row['marks'];
+            //echo $row['marks'];
             $total_marks = $obtained_marks * $row['marks'] / $total_marks;
         }
         
@@ -94,7 +94,14 @@ class store_result
         
         R::exec( $sql, array(':id1'=>$total_marks, ':id2'=>$result_id));
         
-        return $result_id;
+        $sql = 'UPDATE questionpaper qp
+                INNER JOIN questionpaperstatus qps ON qps.id = qp.status_id
+                SET qp.status_id = qps.id
+                WHERE qps.status = :status';
+        
+        R::exec($sql, array(':status'=>RESULT_DECLARED));
+        
+        return fetch_candidate_result($result_id);
     }
 }
 ?>

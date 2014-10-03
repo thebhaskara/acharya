@@ -26,9 +26,11 @@ class session_manager
     
     public function validate_while_login($user, $user_name, $pwd)
     {
+        $decrypted_pwd = decrypt($pwd);
+        
         if($user == EXAMINER)
         {
-            $bean=R::findOne(TABLE_EXAMINER,'user_name=:id1 AND password=:id2',array(':id1'=>$user_name, ':id2'=>$pwd));
+            $bean=R::findOne(TABLE_EXAMINER,'user_name=:id1 AND password=:id2',array(':id1'=>$user_name, ':id2'=>$decrypted_pwd));
             
             if($bean != null)
             {
@@ -45,7 +47,7 @@ class session_manager
         }
         else if($user == APPLICANT)
         {
-            $bean=R::findOne(TABLE_CANDIDATE,'user_name=:id1 AND password=:id2',array(':id1'=>$user_name, ':id2'=>$pwd));
+            $bean=R::findOne(TABLE_CANDIDATE,'user_name=:id1 AND password=:id2',array(':id1'=>$user_name, ':id2'=>$decrypted_pwd));
             
             if($bean != null)
             {

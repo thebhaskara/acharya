@@ -20,7 +20,7 @@ class create_question
                 $answer = new answer();
                 $answer->question = $question_obj;
                 $answer->option = $ans[0];
-                $answer->description = '';
+                $answer->description = 'answer text';
                 $answer->is_right_answer = $ans[1];
                 //$answer->description = "desc";
                 $answer->insert_into_db();

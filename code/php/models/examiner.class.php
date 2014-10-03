@@ -10,18 +10,22 @@ class examiner
     public $experience; // in months
     public $user_name;
     public $password;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
-        $examiner                = R::dispense(TABLE_EXAMINER);
-        $examiner->first_name    = $this->first_name;
-        $examiner->middle_name   = $this->middle_name;
-        $examiner->last_name     = $this->last_name;
+        $examiner                  = R::dispense(TABLE_EXAMINER);
+        $examiner->first_name      = $this->first_name;
+        $examiner->middle_name     = $this->middle_name;
+        $examiner->last_name       = $this->last_name;
         //$examiner->designation   = $this->designation;
         //$examiner->joining_date  = $this->joining_date;
-        $examiner->experience    = $this->experience;
-        $examiner->user_name            = $this->user_name;
-        $examiner->password             = $this->password;
+        $examiner->experience      = $this->experience;
+        $examiner->user_name       = $this->user_name;
+        $examiner->password        = encrypt($this->password);
+        $examiner->insert_time     = NOW;
+        $examiner->last_updated_time     = NOW;
 
         return R::store($examiner);
     }

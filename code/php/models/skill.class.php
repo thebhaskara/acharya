@@ -3,11 +3,15 @@ class skill
 {
     public $id;
     public $name;
+    public $insert_time;
+    public $last_updated_time;
     
     public function insert_into_db()
     {
-        $skill       = R::dispense(TABLE_SKILL);
-        $skill->name = $this->name;
+        $skill              = R::dispense(TABLE_SKILL);
+        $skill->name        = $this->name;
+        $skill->insert_time = NOW;
+        $skill->last_updated_time = NOW;
 
         return R::store($skill);
     }
