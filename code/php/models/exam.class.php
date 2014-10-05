@@ -12,20 +12,25 @@ class exam
     public $skill_ids;
     public $insert_time;
     public $last_updated_time;
+    public $is_negative_marking;
+    public $passing_marks;
     
     public function insert_into_db()
     {
-        $exam                   = R::dispense(TABLE_EXAM);
-        $exam->name             = $this->name;
-        $exam->experience       = $this->experience;
-        $exam->total_questions  = $this->total_questions;
-        $exam->duration         = $this->duration;
-        $exam->examiner         = examiner::load($this->examiner_id);
-        $exam->designation      = $this->designation;
-        $exam->marks            = $this->marks;
-        $exam->insert_time      = NOW;
-        $exam->last_updated_time      = NOW;
-
+        $exam                       = R::dispense(TABLE_EXAM);
+        $exam->name                 = $this->name;
+        $exam->experience           = $this->experience;
+        $exam->total_questions      = $this->total_questions;
+        $exam->duration             = $this->duration;
+        $exam->examiner             = examiner::load($this->examiner_id);
+        $exam->designation          = $this->designation;
+        $exam->marks                = $this->marks;
+        $exam->insert_time          = NOW;
+        $exam->last_updated_time    = NOW;
+        $exam->is_negative_marking  = $this->is_negative_marking;
+        $exam->passing_marks        = $this->passing_marks;
+        
+        
         //not used right now
         
         //foreach ($this->skill_ids as $skill_id)

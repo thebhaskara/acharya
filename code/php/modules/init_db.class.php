@@ -25,6 +25,9 @@ class init_db
         $level->wrong_answer_weightage = 0.5;
         init_db::$inserted_level = $level->insert_into_db();
         
+        //$level_obj1 = level::load(init_db::$inserted_level);
+        //echo $level_obj1;
+        
         $topic1 = new topic();
         $topic1->text = 'c++';
         $topic1->parent_topic_id = 0;
@@ -54,6 +57,7 @@ class init_db
         $question1->level_id = init_db::$inserted_level;
         $question1->topic_ids = array(init_db::$inserted_topic1, init_db::$inserted_topic2);
         $question1->answers = $answers;
+        $question1->usage_count = 1000;
         
         $question2 = new question();
         $question2->content = 'Solve this question 2';
@@ -62,6 +66,7 @@ class init_db
         $question2->level_id = init_db::$inserted_level;
         $question2->topic_ids = array(init_db::$inserted_topic1, init_db::$inserted_topic2);
         $question2->answers = $answers;
+        $question2->usage_count = 1000;
         
         $questions = array($question1, $question2);
         
@@ -69,6 +74,7 @@ class init_db
         $scenario->summary = "abc";
         $scenario->instruction = "xyz";
         $scenario->content = "as,duiyncvdfyv";
+        $scenario->usage_count = 1000;
         
         $create_question = new create_question();
         init_db::$inserted_scenario = $create_question->insert_into_db($questions, $scenario);
@@ -99,13 +105,15 @@ class init_db
         init_db::$inserted_examiner       = $examiner->insert_into_db();        
         
         $exam = new exam();
-        $exam->name = "C++ 4 yrs experience";
-        $exam->experience = 24;
-        $exam->total_questions = 10;
-        $exam->duration = 120;
-        $exam->examiner_id = init_db::$inserted_examiner;
-        $exam->designation = "lead Engineer";
-        $exam->marks = 100;
+        $exam->name                 = "C++ 4 yrs experience";
+        $exam->experience           = 24;
+        $exam->total_questions      = 10;
+        $exam->duration             = 120;
+        $exam->examiner_id          = init_db::$inserted_examiner;
+        $exam->designation          = "lead Engineer";
+        $exam->marks                = 100;
+        $exam->is_negative_marking  = 'true';
+        $exam->passing_marks        = 33.3;
         
         $exam_parameter1 = new exam_parameter();
         $exam_parameter1->number_of_questions = 3;
@@ -152,6 +160,8 @@ class init_db
         $result->candidate          = candidate::load(init_db::$inserted_candidate);
         $result->question_paper     = question_paper::load(init_db::$inserted_question_paper);
         $result->total_marks        = -10.5;
+        $result->is_passed          = 'false';
+        
         init_db::$inserted_result   = $result->insert_into_db();
         
         foreach(init_db::$all_questions as $all_question)

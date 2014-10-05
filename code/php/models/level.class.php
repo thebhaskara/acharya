@@ -17,7 +17,7 @@ class level
         $level->correct_answer_weightage = $this->correct_answer_weightage;
         $level->wrong_answer_weightage   = $this->wrong_answer_weightage;
         $level->insert_time              = NOW;
-        $level->last_updated_time              = NOW;
+        $level->last_updated_time        = NOW;
 
         return R::store($level);
     }

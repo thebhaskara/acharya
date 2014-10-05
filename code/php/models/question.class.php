@@ -24,7 +24,7 @@ class question
         $question->level             = level::load($this->level_id);
         //$question->topic           = topic::load($this->topic_id); //will be used when a question belongs to just one topic
         $question->scenario          = $this->scenario;
-        $question->usage_count       = 0;
+        $question->usage_count       = isset($this->usage_count)? $this->usage_count : 0;
         $question->insert_time       = NOW;
         $question->last_updated_time = NOW;
         

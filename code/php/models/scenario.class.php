@@ -15,7 +15,7 @@ class scenario
         $scenario->summary     = $this->summary;
         $scenario->instruction = $this->instruction;
         $scenario->content     = $this->content;
-        $scenario->usage_count = 0;
+        $scenario->usage_count = isset($this->usage_count)? $this->usage_count : 0;;
         $scenario->insert_time = NOW;
         $scenario->last_updated_time = NOW;
 
