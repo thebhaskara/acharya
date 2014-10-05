@@ -5,20 +5,20 @@
         <div class="inline-block" ng-class="{ hide: hours<1 }"><h1>{{hours}}</h1><h4>hrs.</h4></div>
         <div class="inline-block" ng-class="{ hide: minutes<1 }"><h1>{{minutes}}</h1><h4>min.</h4></div>
         <div class="inline-block" ng-class="{ hide: seconds<1 }"><h1>{{seconds}}</h1><h4>sec.</h4></div>
-        <div class="inline-block" 
+        <div class="inline-block"
              ng-class="{ hide: !(seconds<1 && minutes<1 && hours<1) }">
             <h1>Exam is over</h1>
         </div>
     </li>
 
-    <a href="#" class="list-group-item" 
+    <a href="#" class="list-group-item"
        ng-repeat="(scenarioId, scenario) in scenarios"
        ng-init="scenarioInit()"
        ng-click="clickScenario()">
         <h4 class="list-group-item-heading">Scenario {{scenario.number}}</h4>
         <div class="btn-group">
-            <button type="button" 
-                    class="btn btn-default" 
+            <button type="button"
+                    class="btn btn-default"
                     ng-class="question.status"
                     ng-repeat="(questionId, question) in scenario.questions"
                     ng-init="questionInit()"
@@ -31,13 +31,13 @@
     <li class="list-group-item">
         <div id="container">
 
-            <video autoplay="true" id="videoElement">     
+            <video autoplay="true" id="videoElement">
             </video>
 
             <img id="image" src="">
             <!--><canvas style="display:none;"></canvas><!-->
 <!--            <canvas id="canvas" width="1280" height="720" style="border:1px solid #d3d3d3;"></canvas><br>-->
-            <canvas id="canvas" width="100%" style="border:1px solid #d3d3d3;"></canvas><br>
+            <canvas id="canvas" style="border:1px solid #d3d3d3;width:100%;"></canvas><br>
             <button onclick="snapshot()">Take Picture</button>
 
         </div>

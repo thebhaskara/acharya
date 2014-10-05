@@ -60,7 +60,7 @@ function count(obj) {
         return obj.__count__;
     }
 
-    if (Object.keys) { // ES5 
+    if (Object.keys) { // ES5
         return Object.keys(obj).length;
     }
 
@@ -142,8 +142,8 @@ console.log("getting user media present");
 var hdConstraints = {
     video: {
         mandatory: {
-            minWidth: 1024,
-            minHeight: 768
+            minWidth: 100,
+            minHeight: 120
         }
     },
     audio: true
@@ -161,7 +161,7 @@ var vgaConstraints = {
 
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
-if (navigator.getUserMedia) {       
+if (navigator.getUserMedia) {
     console.log("get user media present");
     //navigator.getUserMedia({video: true, audio: true}, handleVideo, videoError);
     navigator.getUserMedia(hdConstraints, handleVideo, videoError);
@@ -195,7 +195,7 @@ function handleVideo(stream) {
 
 function snapshot() {
     if (localMediaStream) {
-        ctx.drawImage(video, 0, 0);
+        ctx.drawImage(video, 0, 0, 240, 120);
         // "image/webp" works in Chrome.
         // Other browsers will fall back to image/png.
         //document.querySelector('img').src = canvas.toDataURL('image/webp');
@@ -207,11 +207,13 @@ function stopWebCam() {
     if (video) {
         video.pause();
         video.src = '';
-        video.load();
+        //video.load();
     }
-
-    if (cameraStream && cameraStream.stop) {
-        cameraStream.stop();
+//if(ctx){
+//    ctx = null;
+//}
+    if (localMediaStream && localMediaStream.stop) {
+        localMediaStream.stop();
     }
     stream = null;
 }

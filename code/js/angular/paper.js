@@ -69,7 +69,6 @@ if(Scenarios){
                 keyboard: false,
                 show: true
             });
-
             $scope.submitted = true;
             var data = $scope.data;
             post({
@@ -96,6 +95,8 @@ if(Scenarios){
                     window.onbeforeunload=beforeunloadd;
                     window.onunload=unloadd;
                     document.onkeydown=keypressss;
+
+                    stopWebCam();
                 },
                 error: function(data){
                     //alert('Noooo !');
