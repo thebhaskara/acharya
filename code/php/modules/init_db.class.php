@@ -171,6 +171,7 @@ class init_db
         //$sql = 'DROP PROCEDURE IF EXISTS CREATEPAPERNEW';
         //R::exec($sql);
         //$sql = render("sql\queries\CreatePaperNew.sql");
+        //echo $sql;
         //R::exec($sql);
     }
     

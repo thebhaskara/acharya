@@ -140,7 +140,7 @@ class data{
             $question_paper["total_marks"] = $row["total_marks"];
         }
         
-        return $question_paper;        
+        return $question_paper;
     }
     
     function startexam($question_paper_id)
@@ -188,8 +188,7 @@ class data{
             $scenarios[$row["scenario_number"]]["questions"][$row["question_number"]]["answers"][$row["answer_id"]] = $row['option'];
         }
         
-        $sql = 'UPDATE questionpaper qp
-                INNER JOIN questionpaperstatus qps ON qps.id = qp.status_id
+        $sql = 'UPDATE questionpaper qp, questionpaperstatus qps
                 SET qp.status_id = qps.id
                 WHERE qps.status = :status';
         
@@ -291,8 +290,7 @@ class data{
         
         R::exec( $sql, array(':id1'=>$total_marks, ':id2'=>$result_id));
         
-        $sql = 'UPDATE questionpaper qp
-                INNER JOIN questionpaperstatus qps ON qps.id = qp.status_id
+        $sql = 'UPDATE questionpaper qp, questionpaperstatus qps
                 SET qp.status_id = qps.id
                 WHERE qps.status = :status';
         

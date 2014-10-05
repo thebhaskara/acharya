@@ -12,6 +12,9 @@ BEGIN
         DECLARE difficulty_level INT DEFAULT 0;
         DECLARE temp_counter INT DEFAULT 0;
         DECLARE question_paper_number INT DEFAULT 0;
+        DECLARE currenttime DATETIME;
+
+        SET currenttime = DATE_FORMAT(NOW(),'%Y-%m-%d %H:%i:%s');
 
         SELECT total_questions, duration, marks INTO total_number_of_questions, exam_duration, total_marks
         FROM exam WHERE id = examid;
@@ -22,7 +25,9 @@ BEGIN
         SET exam_parameter_count = (Select count(1) FROM examparameters);
         #END
 
-        INSERT INTO questionpaper (exam_id, candidate_id) VALUES (examid, candidateid);
+        INSERT INTO questionpaper (exam_id, candidate_id, insert_time, last_updated_time)
+                           VALUES (examid, candidateid, currenttime, currenttime);
+
         SET question_paper_number = (SELECT id FROM questionpaper WHERE exam_id = examid ORDER BY id DESC LIMIT 1);
 
         WHILE temp_counter < exam_parameter_count DO
@@ -50,12 +55,12 @@ BEGIN
 
             #SELECT * FROM questionscenariolist;
 
-            INSERT INTO questionpaperdetail (question_paper_id, question_id)
-            SELECT question_paper_number, question_number FROM questionscenariolist
+            INSERT INTO questionpaperdetail (question_paper_id, question_id, insert_time, last_updated_time)
+            SELECT question_paper_number, question_number, currenttime, currenttime FROM questionscenariolist
             WHERE question_number NOT IN (SELECT question_id FROM questionpaperdetail WHERE question_paper_id = question_paper_number)
             LIMIT 0, questions;
 
-		SET temp_counter = temp_counter + 1;				
+		SET temp_counter = temp_counter + 1;
         END WHILE;
 
         UPDATE question q
@@ -64,8 +69,7 @@ BEGIN
         SET q.usage_count = (q.usage_count + 1), s.usage_count = (s.usage_count + 1)
         WHERE qpd.question_paper_id = question_paper_number;
 
-        UPDATE questionpaper qp
-        INNER JOIN questionpaperstatus qps ON qps.id = qp.status_id
+        UPDATE questionpaper qp, questionpaperstatus qps
         SET qp.status_id = qps.id
         WHERE qps.status = 'reviewed and ready to attempt';
 

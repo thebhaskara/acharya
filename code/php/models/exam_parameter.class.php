@@ -17,7 +17,7 @@ class exam_parameter
         $exam_parameter->topic                = topic::load($this->topic_id);
         $exam_parameter->level                = level::load($this->level_id);
         $exam_parameter->insert_time          = NOW;
-        $exam_parameter->last_updated_time          = NOW;
+        $exam_parameter->last_updated_time    = NOW;
 
         return R::store($exam_parameter);
     }
