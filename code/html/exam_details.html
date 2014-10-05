@@ -25,6 +25,20 @@
             <label for="level-name">Total marks</label>
             <input type="text" class="form-control" ng-model="exam.marks">
         </div>
+        <div class="form-group">
+            <label for="level-name">Qualifying cutoff marks</label>
+            <input type="text" class="form-control" ng-model="exam.cutoff">
+        </div>
+        <div class="form-group">
+            <label class="control-label">Apply negative marking?</label>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-model="exam.negativeMarking">
+                    <span ng-if="exam.negativeMarking">Yes</span>
+                    <span ng-if="!exam.negativeMarking">No</span>
+                </label>
+            </div>
+        </div>
         <?php
             include('html\exam_parameters_details.html');
         ?>

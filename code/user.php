@@ -15,6 +15,7 @@ require_once('php/config.php');
         <link href="css/style.css" rel="stylesheet">
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <link href="css/summernote.css" rel="stylesheet">
+        <link href="css/ng-table.min.css" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -59,6 +60,7 @@ include("html/nav_area.html");
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="js/lib/angular.min.js"></script>
         <script src="js/lib/angular-sanitize.min.js"></script>
+        <script src="js/lib/ng-table.min.js"></script>
         <script src="js/lib/bootstrap.min.js"></script>
         <script src="js/lib/summernote.min.js"></script>
         <script src="js/ready.js"></script>

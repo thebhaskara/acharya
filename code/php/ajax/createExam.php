@@ -4,15 +4,17 @@ $post = $_POST;
 //echo alert($post);
 //exit();
 
-$exam                   = new exam();
-$exam->name             = $post["name"];
-$exam->experience       = $post["experience"];
-$exam->total_questions  = $post["questionsCount"];
-$exam->duration         = $post["duration"];
+$exam                       = new exam();
+$exam->name                 = $post["name"];
+$exam->experience           = $post["experience"];
+$exam->total_questions      = $post["questionsCount"];
+$exam->duration             = $post["duration"];
 //$exam->examiner         = $post["name"];
-$exam->examiner         = 1;
-$exam->designation      = $post["designation"];
-$exam->marks            = $post["marks"];
+$exam->examiner_id          = $session->get(USER_KEY)->id;
+$exam->designation          = $post["designation"];
+$exam->marks                = $post["marks"];
+$exam->is_negative_marking  = (isset($post["negativeMarking"]) && $post["negativeMarking"]!=null)? $post["negativeMarking"] : false;
+$exam->passing_marks        = $post["cutoff"];
 
 $exam_parameters        = array();
 

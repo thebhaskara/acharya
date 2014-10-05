@@ -5,7 +5,8 @@ if(!$session->is_logged_in())
 
 //$candidate_id = $session->get(USER_KEY)->id;
 $question_paper_id = $_GET["qid"];
-$scenarios = start_exam::startexam($question_paper_id);
+$scenarios = data::startexam($question_paper_id);
+$exam = data::get_exam_using_qp($question_paper_id);
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineExam">
@@ -29,40 +30,54 @@ $scenarios = start_exam::startexam($question_paper_id);
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
     </head>
-    <body class="container-fluid" ng-controller="paper" oncontextmenu="return false">
 
-        <?php 
+    <?php 
 //include("html/nav_area.html"); 
-        ?>
+if(count($scenarios)>0) {
+    ?>
+    <body class="container-fluid" ng-controller="paper" oncontextmenu="return false">
         <div class="row">
             <div class="col-sm-3 exam-left-nav">
-            <div class="row left-nav-col">
-                <?php
-include("html/paper_left_nav.html");
-                ?>  
-            </div>
+                <div class="row left-nav-col">
+                    <?php
+    include("html/paper_left_nav.html");
+                    ?>  
+                </div>
             </div>
             <div class="col-sm-3"></div>
             <div class="col-sm-9">
                 <?php 
-include("html/paper.html"); 
+    include("html/paper.html"); 
                 ?>
             </div>
         </div>
         <script>
             var Scenarios = <?php echo json_encode($scenarios); ?>;
+            var Exam = <?php echo json_encode($exam); ?>;
         </script>
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="js/lib/jquery-2.1.1.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/lib/angular.min.js"></script>
-        <script src="js/lib/angular-sanitize.min.js"></script>
-        <script src="js/lib/bootstrap.min.js"></script>
-        <script src="js/lib/summernote.min.js"></script>
-        <script src="js/ready.js"></script>
-        <script src="js/angular/anchorDirective.js"></script>
-        <script src="js/angular/dropdownConroller.js"></script>
-        <script src="js/angular/directiveMyElement.js"></script>
-        <script src="js/angular/paper.js"></script>
-    </body>
-</html>
+        <?php } else { ?>
+        <body class="container-fluid">
+
+            <script>
+                var Scenarios = false;
+            </script>
+            <?php
+   
+}  
+include("html/shared_popup.html");?>
+
+
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <script src="js/lib/jquery-2.1.1.min.js"></script>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="js/lib/angular.min.js"></script>
+            <script src="js/lib/angular-sanitize.min.js"></script>
+            <script src="js/lib/bootstrap.min.js"></script>
+            <script src="js/lib/summernote.min.js"></script>
+            <script src="js/ready.js"></script>
+            <script src="js/angular/anchorDirective.js"></script>
+            <script src="js/angular/dropdownConroller.js"></script>
+            <script src="js/angular/directiveMyElement.js"></script>
+            <script src="js/angular/paper.js"></script>
+        </body>
+        </html>

@@ -1,6 +1,6 @@
 <?php
 ini_set('display_errors',true);
-define('SITE_HOME_URL', 'http://localhost:88/oes/');
+define('SITE_HOME_URL', 'http://172.19.140.103:88/oes/');
 
 
 /*

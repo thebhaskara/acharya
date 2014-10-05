@@ -71,7 +71,8 @@ BEGIN
 
         UPDATE questionpaper qp, questionpaperstatus qps
         SET qp.status_id = qps.id
-        WHERE qps.status = 'reviewed and ready to attempt';
+        WHERE qps.status = 'reviewed and ready to attempt'
+        AND qp.id = question_paper_number;
 
         SET temp_counter = 0;
 

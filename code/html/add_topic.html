@@ -3,12 +3,12 @@
     <form role="form">
         <div class="form-group">
             <label for="topic-name">Name of the Topic</label>
-            <input type="text" class="form-control"  ng-model="topicName" placeholder="Enter name...">
+            <input type="text" class="form-control"  ng-model="topicName" >
         </div>
         <div class="form-group">
             <label for="parent-topic-name">Select parent topic</label>
             <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="level..." ng-model="topictext" 
+                <input type="text" class="form-control" ng-model="topictext" 
                        ng-change="openDropdown()">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">

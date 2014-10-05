@@ -10,7 +10,7 @@
     <div class="form-group row">
         <label for="input-summary" class="col-sm-2 control-label">Time limit</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="input-summary" placeholder="time..." ng-model="question.timeLimit">
+            <input type="text" class="form-control" id="input-summary"  ng-model="question.timeLimit">
             <span class="help-block">enter time limit in seconds.</span>
         </div>
     </div>
@@ -24,7 +24,7 @@
 -->
             <!--            dropdown menu-->
             <div class="btn-group" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="type..." ng-model="question.questionTypeText" 
+                <input type="text" class="form-control"  ng-model="question.questionTypeText" 
                        ng-change="openDropdown()">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">
@@ -43,7 +43,7 @@
         <div class="col-sm-3 ">
             
             <div class="btn-group" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="level..." ng-model="question.topictext" 
+                <input type="text" class="form-control" ng-model="question.topictext" 
                        ng-change="openDropdown()">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">
@@ -67,7 +67,7 @@
         <div class="col-sm-3">
             <!--            dropdown menu-->
             <div class="btn-group" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="level..." ng-model="question.leveltext" 
+                <input type="text" class="form-control"  ng-model="question.leveltext" 
                        ng-change="openDropdown()">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">
@@ -86,7 +86,7 @@
                 <input type="checkbox" ng-model="question.answer1isright"> Is right answer
             </label>
         </div>
-        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer1">
+        <input type="text" class="form-control" ng-model="question.answer1">
         <span class="help-block">Enter the answer text</span>
     </div>
     <div class="form-group">
@@ -96,7 +96,7 @@
                 <input type="checkbox" ng-model="question.answer2isright"> Is right answer
             </label>
         </div>
-        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer2">
+        <input type="text" class="form-control" ng-model="question.answer2">
         <span class="help-block">Enter the answer text</span>
     </div>
     <div class="form-group">
@@ -106,7 +106,7 @@
                 <input type="checkbox" ng-model="question.answer3isright"> Is right answer
             </label>
         </div>
-        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer3">
+        <input type="text" class="form-control" ng-model="question.answer3">
         <span class="help-block">Enter the answer text</span>
     </div>
     <div class="form-group">
@@ -116,7 +116,7 @@
                 <input type="checkbox" ng-model="question.answer4isright"> Is right answer
             </label>
         </div>
-        <input type="text" class="form-control" placeholder="answer..." ng-model="question.answer4">
+        <input type="text" class="form-control" ng-model="question.answer4">
         <span class="help-block">Enter the answer text</span>
     </div>
 </div>

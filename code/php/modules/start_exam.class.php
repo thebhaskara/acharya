@@ -45,13 +45,14 @@ class start_exam
             
             $scenarios[$row["scenario_number"]]["questions"][$row["question_number"]]["answers"][$row["answer_id"]] = $row['option'];
         }
-        
+        if(count($rows)>0){
         $sql = 'UPDATE questionpaper qp
                 INNER JOIN questionpaperstatus qps ON qps.id = qp.status_id
                 SET qp.status_id = qps.id
                 WHERE qps.status = :status';
         
         R::exec($sql, array(':status'=>ATTEMPT_IN_PROGRESS));
+        }
         
         return $scenarios;
     }

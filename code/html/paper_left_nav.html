@@ -27,5 +27,19 @@
         </div>
     </a>
 
-    <li class="list-group-item"><button class="btn btn-default" ng-click="submit()">Submit</button></li>
+    <li class="list-group-item"><button class="btn btn-default" ng-click="submitConfirm()">Submit</button></li>
+    <li class="list-group-item">
+        <div id="container">
+
+            <video autoplay="true" id="videoElement">     
+            </video>
+
+            <img id="image" src="">
+            <!--><canvas style="display:none;"></canvas><!-->
+<!--            <canvas id="canvas" width="1280" height="720" style="border:1px solid #d3d3d3;"></canvas><br>-->
+            <canvas id="canvas" width="100%" style="border:1px solid #d3d3d3;"></canvas><br>
+            <button onclick="snapshot()">Take Picture</button>
+
+        </div>
+    </li>
 </div>

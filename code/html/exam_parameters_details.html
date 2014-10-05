@@ -17,7 +17,7 @@
         <div class="form-group">
             <label>select topic: <span class="text-success"><em>{{temp.selectedTopic.text}}</em></span></label>
             <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="topic..." ng-model="exam.param.topictext"
+                <input type="text" class="form-control" ng-model="exam.param.topictext"
                        ng-change="openDropdown()">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">
@@ -31,7 +31,7 @@
         <div class="form-group">
             <label>select level: <span class="text-success"><em>{{temp.selectedLevel.text}}</em></span></label>
             <div class="btn-group btn-block" ng-class="{'open':openClass}" ng-controller="dropdownController">
-                <input type="text" class="form-control" placeholder="level..." ng-model="exam.param.leveltext"
+                <input type="text" class="form-control" ng-model="exam.param.leveltext"
                        ng-change="openDropdown();">
                 <span class="glyphicon glyphicon-chevron-down form-control-feedback" ng-click="toggleDropdown()"></span>
                 <ul class="dropdown-menu" role="menu">

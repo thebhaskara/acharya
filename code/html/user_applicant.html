@@ -3,57 +3,50 @@
         <h1>Welcome <?php echo $session->get(USER_KEY)->first_name; ?></h1>
     </div>
 
-
-    <div ng-if="current.length>0">
+    <div ng-if="current.length>0" class="container-fluid">
         <h3>Your pending exams</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th ng-repeat="current in currentHeadings">{{heading}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="detail in current">
-                    <td ng-repeat="(key, val) in detail">
-                        <span ng-if="key!='question_paper_id'">{{val}}</span>
-                        <a ng-if="key=='question_paper_id'" 
-                           href="paper.php?qid={{val}}"
-                           target="_blank">Start Exam</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div ng-repeat="detail in current" class="col-sm-3 candidate-pending-exams">
+                <h3>{{detail['exam_name']}}</h3>
+                <div ng-repeat="(key, val) in detail">
+
+                    <span ng-if="key!='question_paper_id' && key!='exam_name'">{{key}} :<strong class="display-block">{{val}}</strong></span>
+                    <a ng-if="key=='question_paper_id' && key!='exam_name'" 
+                       href="paper.php?qid={{val}}"
+                       target="_blank"
+                       class="last">Start Exam</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div ng-if="history.length>0">
+    <div ng-if="history.length>0" class=" container-fluid">
         <h3>Your history</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th ng-repeat="heading in historyHeadings">{{heading}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="detail in history">
-                    <td ng-repeat="val in detail">{{val}}</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div ng-repeat="detail in history" class="col-sm-3 candidate-past-exams">
+                <h3>{{detail['exam_name']}}</h3>
+                <div ng-repeat="(key, val) in detail">
+                    <span ng-if="key!='question_paper_id' && key!='exam_name' && key!='is_passed'">{{key}} :<strong class="display-block">{{val}}</strong></span>
+                </div>
+                <span class="text-success last" ng-if="detail['is_passed']=='true'">Passed</span>
+                <span class="text-danger last" ng-if="detail['is_passed'] == 'false'">Failed</span>
+            </div>
+        </div>
     </div>
 </div>
 <script>
     <?php 
-    
+
     $candidateId = $session->get(USER_KEY)->id;
     $history = data::fetch_candidate_history($candidateId);
     echo 'var History = ';
     echo json_encode($history);
     echo ';';
-    
+
     $current = data::fetch_current_exam_details($candidateId);
     echo 'var Current = ';
     echo json_encode($current);
     echo ';';
-    
+
     ?>
 </script>

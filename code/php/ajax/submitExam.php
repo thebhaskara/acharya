@@ -11,9 +11,9 @@ foreach($post as $question_id => $answer){
     array_push($result_details, $result_detail);
 }
 
-data::storeresult($candidate_id, $result_details);
+$response = data::storeresult($candidate_id, $result_details);
 
-echo true;
+echo json_encode($response->export());
 exit();
 
 ?> 

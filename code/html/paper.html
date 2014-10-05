@@ -3,20 +3,20 @@
     <div ng-bind-html="displayScenario.scenario_content"></div>
 </div>
 
-<div class="question-css" ng-repeat="(questionId, question) in displayQuestions">
+<div class="question-css" ng-repeat="question in displayQuestions">
     <h3 my-element>
         <strong class="pull-left">Q{{question.number}}.&nbsp;&nbsp;&nbsp;</strong>
         <div ng-bind-html="question.question_content"></div>
     </h3>
-    <div class="radio" ng-repeat="(answerId, answer) in question.answers" ng-init="answer = {text:answer, id:answerId}">
+    <div class="radio" ng-repeat="(answerId, answer) in question.answers">
         <h4>
             <label>
                 <input type="radio" 
-                       name="answer{{questionId}}" 
+                       name="answer{{question.id}}" 
                        value="{{answer.text}}" 
                        ng-model="answer.given" 
-                       ng-change="changeOption(questionId, answer.text)"
-                       ng-dblclick="removeOption(questionId, answer.text)" />
+                       ng-change="changeOption(answer.text)"
+                       ng-dblclick="removeOption(answer.text)" />
                 {{answer.text}}
             </label>
         </h4>
