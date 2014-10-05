@@ -21,7 +21,8 @@ class candidate
         $candidate->experience           = $this->experience;
         //$candidate->current_organization = $this->current_organization;
         $candidate->user_name            = $this->user_name;
-        $candidate->password             = encrypt($this->password);
+        $candidate->password             = $this->password;
+        //$candidate->password             = encrypt($this->password);
         $candidate->insert_time          = NOW;
         $candidate->last_updated_time    = NOW;
 

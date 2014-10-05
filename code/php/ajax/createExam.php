@@ -30,7 +30,7 @@ foreach($post["parameters"] as $detail){
 
 
 
-$id     = create_exam::insert_into_db($exam, $exam_parameters);
+$id     = data::insert_exam_into_db($exam, $exam_parameters);
 
 if($id<1){
     echo false;

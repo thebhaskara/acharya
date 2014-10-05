@@ -26,7 +26,8 @@ class session_manager
     
     public function validate_while_login($user, $user_name, $pwd)
     {
-        $decrypted_pwd = decrypt($pwd);
+//        $decrypted_pwd = decrypt($pwd);
+        $decrypted_pwd = $pwd;
         
         if($user == EXAMINER)
         {

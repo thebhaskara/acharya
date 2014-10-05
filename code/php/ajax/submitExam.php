@@ -11,7 +11,7 @@ foreach($post as $question_id => $answer){
     array_push($result_details, $result_detail);
 }
 
-store_result::storeresult($candidate_id, $result_details);
+data::storeresult($candidate_id, $result_details);
 
 echo true;
 exit();

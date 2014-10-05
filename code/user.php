@@ -41,11 +41,16 @@ include("html/nav_area.html");
             include("html/register_user.html");
                 ?>
             </div>
-            <?php } else { ?>
+            <?php } else if($session->is_applicant()) { ?>
             <div class="col-sm-8">
-                <h2>Welcome <?php echo $session->get(USER_KEY)->first_name; ?></h2>
+                <?php include('html/user_applicant.html'); ?>
+            </div>
+            <?php } else if($session->is_examiner()) { ?>
+            <div class="col-sm-8">
+                <?php include('html/user_examiner.html'); ?>
             </div>
             <?php } ?>
+            
             <div class="col-sm-2"></div>
         </div>
         

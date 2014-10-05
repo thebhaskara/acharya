@@ -23,7 +23,8 @@ class examiner
         //$examiner->joining_date  = $this->joining_date;
         $examiner->experience      = $this->experience;
         $examiner->user_name       = $this->user_name;
-        $examiner->password        = encrypt($this->password);
+        //$examiner->password        = encrypt($this->password);
+        $examiner->password        = $this->password;
         $examiner->insert_time     = NOW;
         $examiner->last_updated_time     = NOW;
 

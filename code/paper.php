@@ -3,8 +3,9 @@ require_once('php/config.php');
 if(!$session->is_logged_in())
     open_login_page();
 
-$candidate_id = $session->get(USER_KEY)->id;
-$scenarios = start_exam::startexam($candidate_id);
+//$candidate_id = $session->get(USER_KEY)->id;
+$question_paper_id = $_GET["qid"];
+$scenarios = start_exam::startexam($question_paper_id);
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineExam">
@@ -28,16 +29,18 @@ $scenarios = start_exam::startexam($candidate_id);
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
     </head>
-    <body class="container-fluid" ng-controller="paper">
+    <body class="container-fluid" ng-controller="paper" oncontextmenu="return false">
 
         <?php 
-include("html/nav_area.html"); 
+//include("html/nav_area.html"); 
         ?>
         <div class="row">
-            <div class="col-sm-3 left-nav-col" style="position:fixed; overflow">
+            <div class="col-sm-3 exam-left-nav">
+            <div class="row left-nav-col">
                 <?php
 include("html/paper_left_nav.html");
                 ?>  
+            </div>
             </div>
             <div class="col-sm-3"></div>
             <div class="col-sm-9">
@@ -59,6 +62,7 @@ include("html/paper.html");
         <script src="js/ready.js"></script>
         <script src="js/angular/anchorDirective.js"></script>
         <script src="js/angular/dropdownConroller.js"></script>
+        <script src="js/angular/directiveMyElement.js"></script>
         <script src="js/angular/paper.js"></script>
     </body>
 </html>

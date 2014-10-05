@@ -1,16 +1,24 @@
-<div ng-repeat="(scenarioId, scenario) in scenarios" ng-init="scenario.id = scenarioId">
-    <div class="page-header">
-        <h1><small>{{scenario.instruction}}</small></h1>
-    </div>
-    <div class="jumbotron" ng-bind-html="scenario.scenario_content">
-    </div>
-    <div ng-repeat="(questionId, question) in scenario.questions" ng-init="questionInit()">
-        <h3><span class="label label-primary pull-left">{{question.count}}.</span> <span ng-bind-html="question.question_content"></span></h3>
-        <div class="radio" ng-repeat="(answerId, answer) in question.answers" ng-init="answer = {text:answer, id:answerId}">
+<div class="jumbotron">
+    <h3>{{displayScenario.instruction}}</h3>
+    <div ng-bind-html="displayScenario.scenario_content"></div>
+</div>
+
+<div class="question-css" ng-repeat="(questionId, question) in displayQuestions">
+    <h3 my-element>
+        <strong class="pull-left">Q{{question.number}}.&nbsp;&nbsp;&nbsp;</strong>
+        <div ng-bind-html="question.question_content"></div>
+    </h3>
+    <div class="radio" ng-repeat="(answerId, answer) in question.answers" ng-init="answer = {text:answer, id:answerId}">
+        <h4>
             <label>
-                <input type="radio" name="answer{{questionId}}" value="{{answer.text}}" ng-model="answer.given" ng-change="changeOption(questionId, answer.text)">
+                <input type="radio" 
+                       name="answer{{questionId}}" 
+                       value="{{answer.text}}" 
+                       ng-model="answer.given" 
+                       ng-change="changeOption(questionId, answer.text)"
+                       ng-dblclick="removeOption(questionId, answer.text)" />
                 {{answer.text}}
             </label>
-        </div>
+        </h4>
     </div>
 </div>

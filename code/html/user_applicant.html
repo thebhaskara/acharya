@@ -1,0 +1,59 @@
+<div ng-controller="applicant">
+    <div class="page-header">
+        <h1>Welcome <?php echo $session->get(USER_KEY)->first_name; ?></h1>
+    </div>
+
+
+    <div ng-if="current.length>0">
+        <h3>Your pending exams</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-repeat="current in currentHeadings">{{heading}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="detail in current">
+                    <td ng-repeat="(key, val) in detail">
+                        <span ng-if="key!='question_paper_id'">{{val}}</span>
+                        <a ng-if="key=='question_paper_id'" 
+                           href="paper.php?qid={{val}}"
+                           target="_blank">Start Exam</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div ng-if="history.length>0">
+        <h3>Your history</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th ng-repeat="heading in historyHeadings">{{heading}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="detail in history">
+                    <td ng-repeat="val in detail">{{val}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    <?php 
+    
+    $candidateId = $session->get(USER_KEY)->id;
+    $history = data::fetch_candidate_history($candidateId);
+    echo 'var History = ';
+    echo json_encode($history);
+    echo ';';
+    
+    $current = data::fetch_current_exam_details($candidateId);
+    echo 'var Current = ';
+    echo json_encode($current);
+    echo ';';
+    
+    ?>
+</script>

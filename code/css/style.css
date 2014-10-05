@@ -15,3 +15,31 @@
 h2+.alert-warning{display:block;}
 .alert-success+.alert-warning{display: none;}
 
+.inline-block, .inline-block *{
+    display:inline-block;
+}
+.visible-hidden{
+    visibility:hidden;
+}
+
+.jumbotron{
+    padding-top: 1px;
+    padding-bottom: 0px;
+}
+.question-css,.question-css *{
+    line-height: 1.5;
+}
+
+.question-css h3{
+    padding-bottom: 10px;
+}
+.question-css{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.exam-left-nav{
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}

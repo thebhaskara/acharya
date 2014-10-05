@@ -126,11 +126,13 @@ class data{
                 INNER JOIN questionpaperstatus qps ON qps.id = qp.status_id
                 INNER JOIN exam e ON e.id = qp.exam_id
                 WHERE candidate_id = :id
-                AND qps.status = :status
-                ORDER BY last_updated_time desc
-                LIMIT 1';
+                AND qps.status = :status';
+                //ORDER BY qp.last_updated_time desc
+                //LIMIT 1';
         
         $rows = R::getAll( $sql, array(':id'=>$candidate_id, ':status'=>REVIEWED_READY_TO_ATEMPT));
+        
+        $question_papers = array();
         
         foreach($rows as $row)
         {
@@ -139,9 +141,10 @@ class data{
             $question_paper["total_questions"] = $row["total_questions"];
             $question_paper["duration"] = $row["duration"];
             $question_paper["total_marks"] = $row["total_marks"];
+            array_push($question_papers, $question_paper);
         }
         
-        return $question_paper;
+        return $question_papers;
     }
     
     function startexam($question_paper_id)

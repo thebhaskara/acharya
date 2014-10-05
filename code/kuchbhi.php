@@ -21,31 +21,21 @@ require_once('php/config.php');
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
     </head>
-    <body class="container" ng-controller="addScenario">
-        <?php
-/*
-$a = R::dispense('tablea');
-$b = R::dispense('tableb');
-$rel = R::dispense('tableab');
-
-$a->text = 'Bhaskar';
-
-$b->description = 'is doing something';
-//$relation = R::load('tableab', R::store($rel));
-//$a->relb = $rel;
-//$b->rela = $rel;
-
-$rel->b = $b;
-$rel->a = $a;
-
-echo R::store($rel);
-*/
-basename();
-?>
+    <body class="container" ng-controller="kuchbhi">
+        <label><?php echo alert(NOW); ?></label>
+        <button ng-click="initDb();" class="btn btn-default">Init db</button>
+        <button ng-click="initQuestionPaperStatus();" class="btn btn-default">init Question Paper Status</button>
+        
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-        <script src="js/jquery-2.1.1.min.js"></script>
+        <script src="js/lib/jquery-2.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="js/angular.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/lib/angular.min.js"></script>
+        <script src="js/lib/angular-sanitize.min.js"></script>
+        <script src="js/lib/bootstrap.min.js"></script>
+        <script src="js/lib/summernote.min.js"></script>
+        <script src="js/ready.js"></script>
+        <script src="js/angular/anchorDirective.js"></script>
+        <script src="js/angular/dropdownConroller.js"></script>
+        <script src="js/angular/controllerKuchbhi.js"></script>
     </body>
 </html>

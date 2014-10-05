@@ -54,4 +54,28 @@ onlineExam.controller('loginRegister', function ($scope) {
 });
 
 
-
+onlineExam.controller('applicant', function ($scope) {
+    $scope.history = History;
+    $scope.historyHeadings = [];
+    
+    if($scope.history.length>0){
+        jQuery.each($scope.history[0], function(key, val){
+            $scope.historyHeadings.push(key);
+        });
+    }
+    
+    $scope.current = Current;
+    $scope.currentHeadings = [];
+    
+    if($scope.current.length>0){
+        jQuery.each($scope.current[0], function(key, val){
+            $scope.currentHeadings.push(key);
+        });
+    }
+    
+    $scope.startExam = function(questionPaperId){
+        
+    }
+    
+    
+});
