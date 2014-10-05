@@ -2,6 +2,7 @@
 class session_manager
 {
     public $current;
+    public $data;
     
     function start()
     {
@@ -88,6 +89,11 @@ class session_manager
         unset($this->current[USER_KEY]);
         unset($this->current[USER_TYPE_KEY]);
         $this->close();
+    }
+    
+    function save($result_details)
+    {
+        $this->data = $result_details;
     }
 }
 ?>
