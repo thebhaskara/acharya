@@ -19,7 +19,7 @@ if(!$session->is_examiner())
         <link href="css/style.css" rel="stylesheet">
         <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
         <link href="css/summernote.css" rel="stylesheet">
-        
+
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -29,22 +29,22 @@ if(!$session->is_examiner())
     </head>
     <body class="container-fluid" ng-controller="addScenario">
 
-        <?php 
-include("html/nav_area.html"); 
+        <?php
+include("html/nav_area.html");
 ?>
         <div class="row">
             <div class="col-sm-3 left-nav-col" style="position:fixed; overflow">
                 <?php
 include("html/add_scenario_left_nav.html");
-                ?>  
+                ?>
             </div>
             <div class="col-sm-9 col-sm-offset-3">
                 <?php
 include("html/add_scenario_form.html");
-                ?>  
+                ?>
             </div>
         </div>
-        
+        <?php include("html/shared_popup.html"); ?>
         <script>
             var Topics = <?php echo json_encode(topic::get_all()); ?>;
             var ExperienceLevels = <?php echo json_encode(level::get_all()); ?>;

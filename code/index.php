@@ -29,9 +29,10 @@ if(!$session->is_examiner())
     </head>
     <body class="container-fluid" ng-controller="addScenario">
 
-        <?php 
-include("html/nav_area.html"); 
+        <?php
+include("html/nav_area.html");
         ?>
+        <?php include("html/shared_popup.html"); ?>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/lib/jquery-2.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->

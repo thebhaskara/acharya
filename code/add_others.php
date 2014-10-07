@@ -29,8 +29,8 @@ if(!$session->is_examiner())
     </head>
     <body class="container-fluid" ng-controller="addOthers">
 
-        <?php 
-include("html/nav_area.html"); 
+        <?php
+include("html/nav_area.html");
         ?>
         <div class="row">
             <div class="col-sm-3">
@@ -43,6 +43,7 @@ include("html/add_level.html");
 ?>
             </div>
         </div>
+        <?php include("html/shared_popup.html"); ?>
         <script>var Topics = <?php  echo json_encode(topic::get_all()); ?>;</script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/lib/jquery-2.1.1.min.js"></script>

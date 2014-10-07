@@ -61,11 +61,18 @@ onlineExam.controller('addScenario', function ($scope,$http) {
             },
             questions: questions
         };
+        $scope.loaderText="Submitting...";
+        $('#loader').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
         post({
             action: 'createscenario',
             data: dataAdsds,
             success: function(data){
-                alert('great');
+                //alert('great');
+                $('#loader').modal('hide');
                 window.location.reload();
             },
             error: function(){}

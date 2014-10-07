@@ -8,27 +8,27 @@ switch($action){
     case "createscenario":
     include("php/ajax/createScenario.php");
     break;
-    
+
     case "createtopic":
     include("php/ajax/createTopic.php");
     break;
-    
+
     case "createlevel":
     include("php/ajax/createLevel.php");
     break;
-    
+
     case "createexam":
     include("php/ajax/createExam.php");
     break;
-    
+
     case "login":
     include("php/ajax/login.php");
     break;
-    
+
     case "register":
     include("php/ajax/register.php");
     break;
-    
+
     case "createpapers":
     include("php/ajax/createPapers.php");
     break;
@@ -37,11 +37,15 @@ switch($action){
     include("php/ajax/submitExam.php");
     break;
 
+    case "saveImage":
+    include("php/ajax/saveImage.php");
+    break;
+
     /* kuchbhi controls */
     case "initDb":
     include("php/ajax/initDb.php");
     break;
-    
+
     case "initQuestionPaperStatus":
 
     $status = new question_paper_status();
@@ -58,7 +62,7 @@ switch($action){
 
     break;
 
-    
+
     default:
     break;
 }

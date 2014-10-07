@@ -2,13 +2,121 @@
 /*global $, angular, helper*/
 
 if(Scenarios){
-    var blurr = window.onblur;
-    var beforeunloadd = window.onbeforeunload;
-    var unloadd = window.onunload;
-    var keypressss = document.onkeypress;
-
-
     onlineExam.controller('paper', function ($scope, $interval) {
+
+        var blurr = window.onblur;
+        var beforeunloadd = window.onbeforeunload;
+        var unloadd = window.onunload;
+        var keypressss = document.onkeypress;
+        var video = document.querySelector("#videoElement");
+        var canvas = document.querySelector('#canvas');
+        //var ctx = canvas.getContext('2d');
+        var mediaStream = null;
+
+        webcam = {
+            start: function(){
+                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+
+                window.URL = window.URL || window.webkitURL;
+
+                if (navigator.getUserMedia) {
+                    navigator.getUserMedia({video: true, audio: true}, webcam.handleStream, webcam.error);
+                }
+
+            },
+            handleStream:function(stream) {
+                video.src = window.URL.createObjectURL(stream);
+                mediaStream = stream;
+                timer1 = $interval(function(){
+                    var data = {
+                        photo: webcam.snapshot()
+                    };
+                    post({
+                        action: 'saveImage',
+                        data: data,
+                        success: function(){},
+                        error: function(){}
+                    });
+                },5000);
+                startApplicaion();
+                startMonitoring.onblur();
+            },
+            stop: function() {
+                if (video) {
+                    video.pause();
+                    video.src = '';
+                    video.load();
+                }
+                if (mediaStream && mediaStream.stop) {
+                    mediaStream.stop();
+                }
+                stream = null;
+            },
+            error: function(e) {
+                $('#webcam-error').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                }).find('button.btn').click(function(){window.close();});
+            },
+            snapshot: function () {
+                if (mediaStream) {
+                    canvas.height = video.videoHeight;
+                    canvas.width = video.videoWidth;
+                    canvas.getContext('2d').drawImage(video, 0, 0);
+                    return canvas.toDataURL('image/png');
+                }
+            }
+        }
+
+        startMonitoring = {
+            onblur: function(){
+                window.onblur = function(event){
+                    $('#warning-focusout').modal();
+                }
+            },
+            onbeforeunload: function(){
+                window.onbeforeunload = function() {
+                    return "Your exam would be submitted if you continue now. Are you sure?";
+                }
+            },
+            onunload: function(){
+                window.onunload = function(){
+                    $scope.submit();
+                }
+            },
+            onkeydown: function(){
+                document.onkeydown = function(evt) {
+                    evt = evt || window.event;
+                    if (typeof evt.stopPropagation != "undefined") {
+                        evt.stopPropagation();
+                    } else {
+                        evt.cancelBubble = true;
+                    }
+                    evt.preventDefault();
+                };
+            }
+        };
+        stopMonitoring = {
+            onblur: function(){
+                window.onblur = blurr;
+            },
+            onbeforeunload: function(){
+                window.onbeforeunload = beforeunloadd;
+            },
+            onunload: function(){
+                window.onunload = unloadd;
+            },
+            onkeydown: function(){
+                document.onkeydown = keypressss
+            }
+        };
+        webcam.start();
+        startMonitoring.onbeforeunload();
+        startMonitoring.onkeydown();
+        startMonitoring.onunload();
+
+        function startApplicaion(){
         $scope.scenarios = Scenarios;
         $scope.questionNumber = 0;
         $scope.data = {};
@@ -20,38 +128,6 @@ if(Scenarios){
         $scope.seconds = 0;
         $scope.displayScenario = $scope.scenarios[Object.keys($scope.scenarios)[0]];
         $scope.displayQuestions = $scope.displayScenario.questions;
-
-        window.onblur = function(event){
-            $('#warning-focusout').modal();
-        }
-
-        window.onbeforeunload = function() {
-            return "Your exam would be submitted if you close now. Are you sure?";
-        }
-
-        window.onunload = function(){
-            $scope.submit();
-        }
-        document.onkeydown = function(evt) {
-            if(evt.ctrlKey)
-                console.log('Ctrl\n');
-
-            if(evt.altKey)
-                console.log('Alt\n');
-
-            if(evt.shiftKey)
-                console.log('Shift\n');
-
-            console.log('key :'+evt.keyCode)
-            evt = evt || window.event;
-            if (typeof evt.stopPropagation != "undefined") {
-                evt.stopPropagation();
-            } else {
-                evt.cancelBubble = true;
-            }
-            evt.preventDefault();
-        };
-
 
         $scope.initScenario = function(){
             //this.content = $sce.trustAsHtml(this.scenario.scenario_content);
@@ -90,23 +166,26 @@ if(Scenarios){
                         resulttt.find('.text-danger').show();
                     }
                     resulttt.find("#marks-container").text($scope.results.total_marks);
-                    //as.find('.modal-body').text(data);
-                    window.onblur=blurr;
-                    window.onbeforeunload=beforeunloadd;
-                    window.onunload=unloadd;
-                    document.onkeydown=keypressss;
 
-                    stopWebCam();
+                    stopMonitoring.onbeforeunload();
+                    stopMonitoring.onblur();
+                    stopMonitoring.onkeydown();
+                    stopMonitoring.onunload();
+
+                    webcam.stop();
                 },
-                error: function(data){
+                error: function(e){
                     //alert('Noooo !');
-                    console.log(data);
-                },
-                async: false
+                    $scope.notification = {
+                        title: 'Error',
+                        text: e
+                    }
+                    $('#notification').modal({
+                        keyboard: false,
+                        show: true
+                    });
+                }
             });
-
-
-
         };
 
         $scope.questionInit = function(){
@@ -137,6 +216,7 @@ if(Scenarios){
             }
             if($scope.hours==0 && $scope.minutes==0 && $scope.seconds==0){
                 $interval.cancel(timer);
+                $interval.cancel(timer1);
                 $scope.submit();
                 return;
             }
@@ -152,6 +232,7 @@ if(Scenarios){
         };
 
         timer = $interval($scope.decreaseOneSec,1000);
+
 
         $scope.clickScenario = function(){
             $scope.displayScenario = this.scenario;
@@ -193,6 +274,7 @@ if(Scenarios){
             Scenarios = [];
             window.close();
         }
+        }
     });
 
 } else {
@@ -202,7 +284,7 @@ if(Scenarios){
             backdrop: 'static',
             keyboard: false,
             show: true
-        }).find('button.btn').click(function(){window.close();});;
+        }).find('button.btn').click(function(){window.close();});
     });
 }
 

@@ -29,17 +29,18 @@ if(!$session->is_examiner())
     </head>
     <body class="container-fluid" ng-controller="createPaper">
 
-        <?php 
-include("html/nav_area.html"); 
+        <?php
+include("html/nav_area.html");
         ?>
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-4">
-                <?php 
-include("html/create_papers.html"); 
+                <?php
+include("html/create_papers.html");
                 ?>
             </div>
         </div>
+        <?php include("html/shared_popup.html"); ?>
         <script>
             var Exams = <?php echo json_encode(exam::get_all()); ?>;
             var Candidates = <?php echo json_encode(candidate::get_all()); ?>

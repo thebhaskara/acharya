@@ -26,8 +26,8 @@ require_once('php/config.php');
     </head>
     <body class="container-fluid" ng-controller="loginRegister">
 
-        <?php 
-include("html/nav_area.html"); 
+        <?php
+include("html/nav_area.html");
         ?>
         <div class="row">
             <div class="col-sm-2"></div>
@@ -51,10 +51,10 @@ include("html/nav_area.html");
                 <?php include('html/user_examiner.html'); ?>
             </div>
             <?php } ?>
-            
+
             <div class="col-sm-2"></div>
         </div>
-        
+        <?php include("html/shared_popup.html"); ?>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js/lib/jquery-2.1.1.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->

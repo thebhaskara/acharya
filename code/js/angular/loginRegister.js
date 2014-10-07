@@ -13,20 +13,44 @@ onlineExam.controller('loginRegister', function ($scope) {
     };
 
     $scope.login = function(){
+        $scope.loaderText="Loging in...";
+        $('#loader').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
         var data = $scope.login;
         post({
             action: 'login',
             data: data,
             success: function(data){
+                $('#loader').modal('hide');
                 var d = JSON.parse(data);
                 if(d){
                     window.location.reload();
                 } else {
-                    alert("Nooo !");
+
+                    $scope.notification = {
+                        title: 'Error',
+                        text: 'Please check username and password'
+                    }
+                    $('#notification').modal({
+                        keyboard: false,
+                        show: true
+                    });
                 }
             },
-            error: function(data){
-                alert("Nooo !");
+            error: function(e){
+
+                $scope.notification = {
+                    title: 'Error',
+                    text: e.responseText
+                }
+                $('#notification').modal({
+                    keyboard: false,
+                    show: true
+                });
+                //alert("Nooo !");
             }
         });
 
@@ -39,15 +63,37 @@ onlineExam.controller('loginRegister', function ($scope) {
 
     $scope.register = {};
     $scope.registerSubmit = function(){
+        $scope.loaderText="Registering...";
+        $('#loader').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        });
         var data = $scope.register;
         post({
             action: 'register',
             data: data,
             success: function(data){
-                alert("Nooo !");
+                $('#loader').modal('hide');
+                $scope.notification = {
+                    title: 'Done',
+                    text: 'Registering is finished!'
+                }
+                $('#notification').modal({
+                    keyboard: false,
+                    show: true
+                });
+                //alert("Nooo !");
             },
-            error: function(data){
-                alert("Nooo !");
+            error: function(e){
+                $scope.notification = {
+                    title: 'Error',
+                    text: e.responseText
+                }
+                $('#notification').modal({
+                    keyboard: false,
+                    show: true
+                });
             }
         });
     }
