@@ -33,6 +33,10 @@ switch($action){
     include("php/ajax/createPapers.php");
     break;
 
+    case "loadExam":
+    include("php/ajax/loadExam.php");
+    break;
+
     case "submitExam":
     include("php/ajax/submitExam.php");
     break;

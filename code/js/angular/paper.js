@@ -1,133 +1,203 @@
 /*jslint browser: true, devel: true, sloppy: true, todo: true*/
 /*global $, angular, helper*/
 
-if(Scenarios){
-    onlineExam.controller('paper', function ($scope, $interval) {
+//if(Scenarios){
+onlineExam.controller('paper', function ($scope, $interval) {
 
-        var blurr = window.onblur;
-        var beforeunloadd = window.onbeforeunload;
-        var unloadd = window.onunload;
-        var keypressss = document.onkeypress;
-        var video = document.querySelector("#videoElement");
-        var canvas = document.querySelector('#canvas');
-        //var ctx = canvas.getContext('2d');
-        var mediaStream = null;
+    var blurr = window.onblur;
+    var beforeunloadd = window.onbeforeunload;
+    var unloadd = window.onunload;
+    var keypressss = document.onkeypress;
+    var video = document.querySelector("#videoElement");
+    var canvas = document.querySelector('#canvas');
+    //var ctx = canvas.getContext('2d');
+    var mediaStream = null;
 
-        webcam = {
-            start: function(){
-                navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
+    webcam = {
+        start: function(){
+            navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 
-                window.URL = window.URL || window.webkitURL;
+            window.URL = window.URL || window.webkitURL;
 
-                if (navigator.getUserMedia) {
-                    navigator.getUserMedia({video: true, audio: true}, webcam.handleStream, webcam.error);
-                }
+            if (navigator.getUserMedia) {
+                navigator.getUserMedia({video: true, audio: true}, webcam.handleStream, webcam.error);
+            }
 
-            },
-            handleStream:function(stream) {
-                video.src = window.URL.createObjectURL(stream);
-                mediaStream = stream;
-                timer1 = $interval(function(){
-                    var data = {
-                        photo: webcam.snapshot()
-                    };
-                    post({
-                        action: 'saveImage',
-                        data: data,
-                        success: function(){},
-                        error: function(){}
-                    });
-                },5000);
-                startApplicaion();
-                startMonitoring.onblur();
-            },
-            stop: function() {
-                if (video) {
-                    video.pause();
-                    video.src = '';
-                    video.load();
-                }
-                if (mediaStream && mediaStream.stop) {
-                    mediaStream.stop();
-                }
-                stream = null;
-            },
-            error: function(e) {
-                $('#webcam-error').modal({
-                    backdrop: 'static',
-                    keyboard: false,
-                    show: true
-                }).find('button.btn').click(function(){window.close();});
-            },
-            snapshot: function () {
-                if (mediaStream) {
-                    canvas.height = video.videoHeight;
-                    canvas.width = video.videoWidth;
-                    canvas.getContext('2d').drawImage(video, 0, 0);
-                    return canvas.toDataURL('image/png');
-                }
+        },
+        handleStream:function(stream) {
+            video.src = window.URL.createObjectURL(stream);
+            mediaStream = stream;
+
+            //$scope.startExam();
+            startMonitoring.onblur();
+            enableStartExam();
+            $scope.examDisabled = false;
+            $scope.refresh();
+        },
+        stop: function() {
+            if (video) {
+                video.pause();
+                video.src = '';
+                video.load();
+            }
+            if (mediaStream && mediaStream.stop) {
+                mediaStream.stop();
+            }
+            stream = null;
+        },
+        error: function(e) {
+//            $('#webcam-error').modal({
+//                backdrop: 'static',
+//                keyboard: false,
+//                show: true
+//            }).find('button.btn').click(function(){window.close();});
+        },
+        snapshot: function () {
+            if (mediaStream) {
+                canvas.height = video.videoHeight;
+                canvas.width = video.videoWidth;
+                canvas.getContext('2d').drawImage(video, 0, 0);
+                return canvas.toDataURL('image/png');
             }
         }
+    }
 
-        startMonitoring = {
-            onblur: function(){
-                window.onblur = function(event){
-                    $('#warning-focusout').modal();
-                }
-            },
-            onbeforeunload: function(){
-                window.onbeforeunload = function() {
-                    return "Your exam would be submitted if you continue now. Are you sure?";
-                }
-            },
-            onunload: function(){
-                window.onunload = function(){
-                    $scope.submit();
-                }
-            },
-            onkeydown: function(){
-                document.onkeydown = function(evt) {
-                    evt = evt || window.event;
-                    if (typeof evt.stopPropagation != "undefined") {
-                        evt.stopPropagation();
-                    } else {
-                        evt.cancelBubble = true;
-                    }
-                    evt.preventDefault();
-                };
+    startMonitoring = {
+        onblur: function(){
+            window.onblur = function(event){
+                $('#warning-focusout').modal();
             }
-        };
-        stopMonitoring = {
-            onblur: function(){
-                window.onblur = blurr;
-            },
-            onbeforeunload: function(){
-                window.onbeforeunload = beforeunloadd;
-            },
-            onunload: function(){
-                window.onunload = unloadd;
-            },
-            onkeydown: function(){
-                document.onkeydown = keypressss
+        },
+        onbeforeunload: function(){
+            window.onbeforeunload = function() {
+                return "Your exam would be submitted if you continue now. Are you sure?";
             }
-        };
-        webcam.start();
-        startMonitoring.onbeforeunload();
-        startMonitoring.onkeydown();
-        startMonitoring.onunload();
+        },
+        onunload: function(){
+            window.onunload = function(){
+                $scope.submit();
+            }
+        },
+        onkeydown: function(){
+            document.onkeydown = function(evt) {
+                evt = evt || window.event;
+                if (typeof evt.stopPropagation != "undefined") {
+                    evt.stopPropagation();
+                } else {
+                    evt.cancelBubble = true;
+                }
+                evt.preventDefault();
+            };
+        }
+    };
+    stopMonitoring = {
+        onblur: function(){
+            window.onblur = blurr;
+        },
+        onbeforeunload: function(){
+            window.onbeforeunload = beforeunloadd;
+        },
+        onunload: function(){
+            window.onunload = unloadd;
+        },
+        onkeydown: function(){
+            document.onkeydown = keypressss
+        }
+    };
 
-        function startApplicaion(){
-        $scope.scenarios = Scenarios;
+    enableStartExam = function(){
+        $scope.examDisabled = false;
+    }
+
+    $scope.refresh = function(){
+        $scope.$apply(function() {
+            $scope.examDisabled = $scope.examDisabled;
+        });
+    }
+
+    $scope.examDisabled = webcamRequired;
+    $scope.examDisabledfn = function(){
+        return $scope.examDisabled;
+    };
+    $scope.isWebCamRequired = webcamRequired;
+
+    $(document).ready(function(){
+        if(webcamRequired){
+            webcam.start();
+        }
+        else{
+            startMonitoring.onblur();
+            //$scope.examDisabled = false;
+        }
+        $('#instructions').modal({
+            backdrop: 'static',
+            keyboard: false,
+            show: true
+        }).find('button.btn').click(function(){
+            $scope.startExam();
+            $('#instructions').modal('hide');
+        });
+
+    });
+
+    startMonitoring.onbeforeunload();
+    startMonitoring.onkeydown();
+    startMonitoring.onunload();
+
+    $scope.scenarios=[];
+
+    $scope.startExam = function(){
+        post({
+            action: 'loadExam',
+            data: { qid: questionPaperId },
+            success: function (data){
+                var info = JSON.parse(data);
+                if(info.scenarios){
+                    startApplicaion(info.scenarios, info.Exam);
+                } else {
+                    paperError();
+                }
+            },
+            error: paperError
+        });
+    }
+
+    function paperError(){
+        $(document).ready(function(){
+            $('#paper-error').modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            }).find('button.btn').click(function(){window.close();});
+        });
+    }
+
+    function startApplicaion(actualScenarios, Exam){
+        //if(!actualScenarios || !actualScenarios.length || actualScenarios.length<1)
+            //return;
+        $scope.scenarios = actualScenarios;
         $scope.questionNumber = 0;
         $scope.data = {};
         $scope.scenarioData = {};
-        $scope.hours = Math.floor(Exam.duration/60);
-        $scope.minutes = Exam.duration%60;
+        $scope.hours = Math.floor(Exam.duration / 60);
+        $scope.minutes = Exam.duration % 60;
         //        $scope.hours = 0;
         //        $scope.minutes = 0;
         $scope.seconds = 0;
         $scope.displayScenario = $scope.scenarios[Object.keys($scope.scenarios)[0]];
         $scope.displayQuestions = $scope.displayScenario.questions;
+
+        timer1 = $interval(function(){
+            var data = {
+                photo: webcam.snapshot()
+            };
+            post({
+                action: 'saveImage',
+                data: data,
+                success: function(){},
+                error: function(){}
+            });
+        },5000);
 
         $scope.initScenario = function(){
             //this.content = $sce.trustAsHtml(this.scenario.scenario_content);
@@ -147,6 +217,8 @@ if(Scenarios){
             });
             $scope.submitted = true;
             var data = $scope.data;
+            $interval.cancel(timer);
+            $interval.cancel(timer1);
             post({
                 data:data,
                 action: 'submitExam',
@@ -274,17 +346,17 @@ if(Scenarios){
             Scenarios = [];
             window.close();
         }
-        }
-    });
+    }
+});
 
-} else {
-    $(document).ready(function(){
-
-        $('#paper-error').modal({
-            backdrop: 'static',
-            keyboard: false,
-            show: true
-        }).find('button.btn').click(function(){window.close();});
-    });
-}
+//} else {
+//    $(document).ready(function(){
+//
+//        $('#paper-error').modal({
+//            backdrop: 'static',
+//            keyboard: false,
+//            show: true
+//        }).find('button.btn').click(function(){window.close();});
+//    });
+//}
 

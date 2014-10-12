@@ -65,6 +65,7 @@ define("ENCRYPTION_KEY", "!@#bhaskara$%^&*");
 # Variables
 # Session
 define("SESSION_ID", "session_id");
+define("WEBCAM_REQUIRED", "true");
 #define("SESSION_USER", "session_user");
 
 # Folders

@@ -5,7 +5,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content" >
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Hey</h4>
+                <h4 class="modal-title">Hey</h4>
             </div>
             <div class="modal-body">
                 Your exam is either done or being attempted. Please close this tab.
@@ -24,7 +24,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content" >
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Hey</h4>
+                <h4 class="modal-title">Hey</h4>
             </div>
             <div class="modal-body">
                 Please make sure a webcam is present and enabled.
@@ -43,7 +43,7 @@
         <div class="modal-content" >
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title" id="myModalLabel">Confirm submit</h4>
+                <h4 class="modal-title">Confirm submit</h4>
             </div>
             <div class="modal-body">
                 Do you really wanna submit?
@@ -62,7 +62,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content" >
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Your result</h4>
+                <h4 class="modal-title">Your result</h4>
             </div>
             <div class="modal-body">
                 <h4 class="text-success text-center" ng-if="results.is_passed=='true'">Passed</h4>
@@ -82,7 +82,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content" >
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Warning!</h4>
+                <h4 class="modal-title">Warning!</h4>
             </div>
             <div class="modal-body">
                 Please do not open other windows!
@@ -100,7 +100,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content" >
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">{{notification.title}}</h4>
+                <h4 class="modal-title">{{notification.title}}</h4>
             </div>
             <div class="modal-body">
                 {{notification.text}}
@@ -118,7 +118,33 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content" >
             <div class="modal-body">
-                <h4 class="modal-title" id="myModalLabel">{{loaderText}}</h4>
+                <h4 class="modal-title">{{loaderText}}</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" id="instructions">
+    <div class="modal-dialog">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h4 class="modal-title">Please read the following instructions</h4>
+            </div>
+            <div class="modal-body">
+                <p ng-if="isWebCamRequired">
+                To attempt this exam webcam is compulsory and start exam will only activate when you allow webcam
+                </p>
+                <p>This paper is scenario based.</p>
+                <p>Click on left pane to look at the related question.</p>
+                <p>Blue color on question number indicates that it is visited.</p>
+                <p>Green color on question number indicates that it is Answered.</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" ng-disabled="examDisabled">Start Exam</button>
+                <a data-dismiss="modal">Cancel</a>
             </div>
         </div>
     </div>

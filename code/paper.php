@@ -5,8 +5,8 @@ if(!$session->is_logged_in())
 
 //$candidate_id = $session->get(USER_KEY)->id;
 $question_paper_id = $_GET["qid"];
-$scenarios = data::startexam($question_paper_id);
-$exam = data::get_exam_using_qp($question_paper_id);
+//$scenarios = data::startexam($question_paper_id);
+//$exam = data::get_exam_using_qp($question_paper_id);
 ?>
 <!DOCTYPE html>
 <html lang="en" ng-app="onlineExam">
@@ -31,9 +31,9 @@ $exam = data::get_exam_using_qp($question_paper_id);
 <![endif]-->
     </head>
 
-    <?php 
-//include("html/nav_area.html"); 
-if(count($scenarios)>0) {
+    <?php
+//include("html/nav_area.html");
+//if(count($scenarios)>0) {
     ?>
     <body class="container-fluid" ng-controller="paper" oncontextmenu="return false">
         <div class="row">
@@ -41,30 +41,25 @@ if(count($scenarios)>0) {
                 <div class="row left-nav-col">
                     <?php
     include("html/paper_left_nav.html");
-                    ?>  
+                    ?>
                 </div>
             </div>
-            <div class="col-sm-3"></div>
-            <div class="col-sm-9">
-                <?php 
-    include("html/paper.html"); 
+            <div class="col-sm-3" ng-if="scenarios!=[]"></div>
+            <div class="col-sm-9" ng-if="scenarios!=[]">
+                <?php
+    include("html/paper.html");
                 ?>
             </div>
         </div>
         <script>
-            var Scenarios = <?php echo json_encode($scenarios); ?>;
-            var Exam = <?php echo json_encode($exam); ?>;
+            var webcamRequired = <?php echo WEBCAM_REQUIRED; ?>;
+            var questionPaperId = <?php echo $question_paper_id; ?>;
         </script>
-        <?php } else { ?>
-        <body class="container-fluid">
-
-            <script>
-                var Scenarios = false;
-            </script>
             <?php
-   
-}  
-include("html/shared_popup.html");?>
+
+//}
+include("html/shared_popup.html");
+            ?>
 
 
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
